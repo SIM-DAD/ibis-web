@@ -1,832 +1,1670 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ibis — Local AI Transcription for Windows</title>
-  <meta name="description" content="Ibis watches a folder on your Windows PC and transcribes every audio file using local AI. No cloud. No subscription. Your recordings never leave your machine.">
-  <meta property="og:title" content="Ibis — Local AI Transcription for Windows">
-  <meta property="og:description" content="Your voice. Your data. Your scribe. AI transcription that runs entirely on your machine — no cloud, no subscription.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="img/icon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ibis — Private, Local Transcription for Windows</title>
+  <meta name="description" content="Ibis watches a folder on your Windows PC and transcribes every audio file automatically using AI that runs entirely offline. No cloud. No subscription. One-time purchase." />
+  <meta property="og:title" content="Ibis — Private, Local Transcription for Windows" />
+  <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <style>
-    /* ── TOKENS ─────────────────────────────────────── */
+    /* =========================================================
+       CSS CUSTOM PROPERTIES — LIGHT MODE
+    ========================================================= */
     :root {
-      --bg:      #f1f1f1;
-      --text:    #262626;
-      --acc1:    #e63946;
-      --acc2:    #ffa07a;
-      --acc3:    #2c3e50;
-      --white:   #ffffff;
-      --border:  #e2e2e2;
-      --muted:   #777;
-      --font:    'Inter', system-ui, -apple-system, sans-serif;
-      --radius:  10px;
+      --primary:   #2D6A8F;
+      --primary-h: #245A7B;
+      --light:     #E6F2F9;
+      --mid:       #B8D8EC;
+      --text:      #1E2A35;
+      --muted:     #6B6B66;
+      --bg:        #FAFCFE;
+      --surface:   #FFFFFF;
+      --border:    #D8EBF5;
+      --font:      'Lora', Georgia, serif;
+      --max-w:     1200px;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 4px rgba(45,106,143,.08);
+      --shadow-md: 0 4px 24px rgba(45,106,143,.12);
+      --shadow-lg: 0 20px 60px rgba(45,106,143,.2);
+      --transition: 0.2s ease;
     }
 
-    /* ── RESET ──────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    /* =========================================================
+       DARK MODE OVERRIDES
+    ========================================================= */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #0D1620;
+        --surface: #131E2B;
+        --text:    #EBF2F8;
+        --muted:   #8AA8BC;
+        --border:  #1E3348;
+        --light:   #152333;
+        --mid:     #234860;
+        --shadow-sm: 0 1px 4px rgba(0,0,0,.3);
+        --shadow-md: 0 4px 24px rgba(0,0,0,.4);
+        --shadow-lg: 0 20px 60px rgba(0,0,0,.5);
+      }
+    }
+
+    /* =========================================================
+       RESET & BASE
+    ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
       font-family: var(--font);
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-    }
-    code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.88em;
-      background: rgba(0,0,0,0.06);
-      padding: 0.1em 0.35em;
-      border-radius: 3px;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── UTILITIES ──────────────────────────────────── */
-    .container { max-width: 1020px; margin: 0 auto; }
+    img, video {
+      max-width: 100%;
+      display: block;
+    }
 
-    .label {
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    a:hover {
+      color: var(--primary-h);
+    }
+
+    button {
+      cursor: pointer;
+      font-family: var(--font);
+      border: none;
+      background: none;
+      font-size: 1rem;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* =========================================================
+       LAYOUT UTILITIES
+    ========================================================= */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: 5rem 0;
+    }
+
+    .eyebrow {
+      display: inline-block;
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--acc1);
-      margin-bottom: 0.85rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.12;
+      color: var(--primary);
       margin-bottom: 1rem;
     }
 
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 580px;
+    .section-heading {
+      font-size: clamp(1.75rem, 4vw, 2.625rem);
+      font-style: italic;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      color: var(--text);
     }
 
-    /* ── BUTTONS ────────────────────────────────────── */
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 0.7rem 1.5rem;
-      border-radius: 6px;
-      font-family: var(--font);
-      font-size: 0.95rem;
+      gap: 0.5rem;
+      padding: 0.75rem 1.625rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
       font-weight: 600;
+      font-family: var(--font);
+      line-height: 1;
+      transition: background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      white-space: nowrap;
       text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
     }
-    .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; }
-    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.88rem; }
 
-    .btn-red {
-      background: var(--acc1);
-      color: #fff;
+    .btn:active {
+      transform: translateY(1px);
     }
-    .btn-red:hover {
-      background: #c1121f;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(230,57,70,.3);
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #fff;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-h);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(45,106,143,.35);
     }
 
     .btn-ghost {
-      background: transparent;
+      background-color: transparent;
       color: var(--text);
-      border: 1.5px solid var(--border);
+      border: 2px solid var(--border);
     }
-    .btn-ghost:hover { border-color: var(--text); }
 
-    .btn-navy {
-      background: var(--acc3);
+    .btn-ghost:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-ghost-white {
+      background-color: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-ghost-white:hover {
+      background-color: rgba(255,255,255,0.12);
+      border-color: #fff;
       color: #fff;
     }
-    .btn-navy:hover {
-      background: #1c2e3e;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(44,62,80,.3);
+
+    .btn-ghost-dark {
+      background-color: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
     }
 
-    .btn-outline-white {
-      background: transparent;
-      color: #fff;
-      border: 1.5px solid rgba(255,255,255,.45);
+    .btn-ghost-dark:hover {
+      background-color: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
     }
-    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,.08); }
 
-    /* ── NAV ────────────────────────────────────────── */
-    nav {
-      position: sticky;
+    .btn-full {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* =========================================================
+       STICKY HEADER
+    ========================================================= */
+    #site-header {
+      position: fixed;
       top: 0;
-      z-index: 200;
-      background: var(--bg);
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      transition: background-color var(--transition), backdrop-filter var(--transition), border-bottom var(--transition), box-shadow var(--transition);
+    }
+
+    #site-header.scrolled {
+      background-color: rgba(250, 252, 254, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      height: 62px;
-      padding: 0 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #site-header.scrolled {
+        background-color: rgba(13, 22, 32, 0.88);
+      }
+    }
+
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-    }
-    .nav-logo img { height: 34px; width: 34px; }
-    .nav-logo-name {
-      font-weight: 800;
-      font-size: 1.15rem;
-      color: var(--text);
-      letter-spacing: -0.03em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-    }
-    .nav-links a.text-link {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.88rem;
-      font-weight: 500;
-      opacity: 0.6;
-      transition: opacity 0.2s;
-    }
-    .nav-links a.text-link:hover { opacity: 1; }
-
-    /* ── HERO ───────────────────────────────────────── */
-    .hero {
-      padding: 6rem 2rem 4.5rem;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(230,57,70,.09);
-      color: var(--acc1);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.38rem 1rem;
-      border-radius: 99px;
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.6rem, 6.5vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--acc1);
-    }
-
-    .hero-sub {
-      font-size: 1.18rem;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.72;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 0.85rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-meta {
-      font-size: 0.8rem;
-      color: #aaa;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
-    /* ── DEMO FRAME ─────────────────────────────────── */
-    .demo-wrap {
-      max-width: 840px;
-      margin: 0 auto 6rem;
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
       padding: 0 2rem;
     }
 
-    .demo-frame {
-      background: var(--acc3);
-      border-radius: 14px;
-      aspect-ratio: 16 / 9;
+    .header-logo {
+      font-size: 1.375rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: color var(--transition);
+    }
+
+    .header-logo:hover {
+      color: var(--primary);
+    }
+
+    .header-cta {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+    #hero {
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.2rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(44,62,80,.25);
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--light) 100%);
     }
-    .demo-frame::before {
+
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .kicker-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--light);
+      border: 1px solid var(--mid);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.375rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+
+    .kicker-pill::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(230,57,70,.18) 0%, transparent 55%);
-      pointer-events: none;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      flex-shrink: 0;
     }
-    /* simulated window chrome */
-    .demo-chrome {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 36px;
-      background: rgba(0,0,0,.25);
+
+    .hero-h1 {
+      font-size: clamp(2.25rem, 6vw, 3.75rem);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.1875rem);
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta-group {
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      gap: 7px;
-    }
-    .demo-dot {
-      width: 11px; height: 11px;
-      border-radius: 50%;
-    }
-    .demo-dot-red   { background: #ff5f57; }
-    .demo-dot-amber { background: #febc2e; }
-    .demo-dot-green { background: #28c840; }
-
-    .demo-play {
-      width: 70px; height: 70px;
-      background: #fff;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: default;
-      position: relative; z-index: 1;
-      box-shadow: 0 4px 20px rgba(0,0,0,.3);
-    }
-    .demo-play svg { margin-left: 4px; }
-
-    .demo-label {
-      color: rgba(255,255,255,.65);
-      font-size: 0.88rem;
-      position: relative; z-index: 1;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
     }
 
-    /* ── HOW IT WORKS ───────────────────────────────── */
-    .how-section {
-      padding: 5rem 2rem;
+    .hero-fine {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-bottom: 3rem;
     }
-    .how-grid {
+
+    .platform-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .platform-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.5rem 1.125rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1.5px solid var(--border);
+      background-color: var(--surface);
+    }
+
+    .platform-badge-icon {
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+
+    .platform-badge-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+
+    .platform-badge-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .platform-badge-status {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-available .platform-badge-status {
+      color: #2D8A5A;
+    }
+
+    .badge-soon .platform-badge-status {
+      color: var(--muted);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .badge-available .platform-badge-status {
+        color: #4DB87A;
+      }
+    }
+
+    /* =========================================================
+       DEMO VIDEO SECTION
+    ========================================================= */
+    #demo-video {
+      background-color: var(--light);
+      padding: 0 2rem 5rem;
+    }
+
+    .video-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* =========================================================
+       HOW IT WORKS
+    ========================================================= */
+    #how-it-works {
+      background-color: var(--light);
+    }
+
+    .how-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.75rem;
-      margin-top: 3.5rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
-    .how-card {
-      background: var(--white);
+
+    .step-card {
+      background-color: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
+      box-shadow: var(--shadow-sm);
     }
-    .how-number {
-      width: 38px; height: 38px;
-      background: var(--acc1);
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.2rem;
-    }
-    .how-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.5rem;
-    }
-    .how-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── PRIVACY ────────────────────────────────────── */
-    .privacy-section {
-      background: var(--acc3);
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary);
       color: #fff;
-      padding: 5.5rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-style: normal;
+      margin-bottom: 1.25rem;
+      flex-shrink: 0;
     }
-    .privacy-grid {
+
+    .step-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      font-style: normal;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .step-card p {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       PRIVACY / WHY IBIS
+    ========================================================= */
+    #why-ibis {
+      background-color: var(--primary);
+      padding: 5rem 0;
+    }
+
+    .why-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem;
+      gap: 4rem;
       align-items: center;
     }
-    .privacy-grid .label { color: var(--acc2); }
-    .privacy-grid .section-title { color: #fff; }
-    .privacy-grid .section-body { color: rgba(255,255,255,.72); }
-    .privacy-cta { margin-top: 2.2rem; }
 
-    .privacy-list {
+    .why-left .eyebrow {
+      color: var(--mid);
+    }
+
+    .why-left h2 {
+      color: #fff;
+      font-size: clamp(1.625rem, 3.5vw, 2.375rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .why-left p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: none;
+    }
+
+    .privacy-items {
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
+      gap: 1.625rem;
     }
+
     .privacy-item {
       display: flex;
       gap: 1rem;
       align-items: flex-start;
     }
-    .privacy-icon {
-      width: 42px; height: 42px;
-      flex-shrink: 0;
-      background: rgba(255,255,255,.1);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.15rem;
-    }
-    .privacy-item h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .privacy-item p  { font-size: 0.83rem; color: rgba(255,255,255,.58); line-height: 1.55; }
 
-    /* ── AUDIENCE ───────────────────────────────────── */
-    .audience-section { padding: 5rem 2rem; }
+    .privacy-item-icon {
+      font-size: 1.375rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .privacy-item-body h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-style: normal;
+      color: #fff;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .privacy-item-body p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* =========================================================
+       WHO USES IBIS
+    ========================================================= */
+    #who-uses {
+      background-color: var(--bg);
+    }
+
+    .who-header {
+      margin-bottom: 3rem;
+    }
+
     .audience-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-      gap: 1.4rem;
-      margin-top: 3rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
     }
+
     .audience-card {
-      background: var(--white);
+      background-color: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.6rem;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
     }
-    .audience-card .icon { font-size: 1.7rem; margin-bottom: 0.75rem; }
-    .audience-card h3 { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .audience-card p  { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
 
-    /* ── PRICING ────────────────────────────────────── */
-    .pricing-section {
-      background: var(--white);
-      padding: 5.5rem 2rem;
+    .audience-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--mid);
     }
+
+    .audience-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .audience-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      font-style: normal;
+      color: var(--text);
+      margin-bottom: 0.625rem;
+      line-height: 1.3;
+    }
+
+    .audience-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       PRICING
+    ========================================================= */
+    #pricing {
+      background-color: var(--surface);
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .pricing-header .section-sub {
+      margin: 0 auto;
+    }
+
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin-top: 3.5rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
     }
+
     .pricing-card {
+      background-color: var(--bg);
       border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 2.5rem;
-      position: relative;
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
     }
-    .pricing-card.featured { border-color: var(--acc1); box-shadow: 0 4px 28px rgba(230,57,70,.12); }
 
-    .pricing-pill {
-      position: absolute;
-      top: -13px; left: 50%;
-      transform: translateX(-50%);
-      padding: 0.24rem 0.85rem;
-      border-radius: 99px;
-      font-size: 0.7rem;
+    .pricing-card.featured {
+      background-color: var(--surface);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), var(--shadow-md);
+    }
+
+    .tier-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.6875rem;
       font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      white-space: nowrap;
-      color: #fff;
+      margin-bottom: 1.25rem;
+      width: fit-content;
     }
-    .pill-red  { background: var(--acc1); }
-    .pill-navy { background: var(--acc3); }
 
-    .pricing-tier { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #aaa; margin-bottom: 0.75rem; }
-    .pricing-price { font-size: 3.2rem; font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-bottom: 0.25rem; }
-    .pricing-price sup { font-size: 1.3rem; font-weight: 700; vertical-align: super; letter-spacing: 0; }
-    .pricing-note { font-size: 0.83rem; color: #aaa; margin-bottom: 1.5rem; }
-    .pricing-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .tier-pill-blue {
+      background-color: var(--light);
+      color: var(--primary);
+      border: 1px solid var(--mid);
+    }
 
-    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; }
-    .feature-list li { display: flex; gap: 0.55rem; align-items: flex-start; font-size: 0.88rem; color: #444; }
-    .feature-list .ck  { color: var(--acc1); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .feature-list .dim { color: #ccc; flex-shrink: 0; margin-top: 1px; }
-    .feature-list .dim-text { color: #bbb; }
+    .tier-pill-dark {
+      background-color: var(--light);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
 
-    .pricing-card .btn { width: 100%; }
+    .tier-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.625rem;
+    }
 
-    /* ── EMAIL CAPTURE ──────────────────────────────── */
-    .email-section {
-      padding: 5.5rem 2rem;
+    .tier-price {
+      font-size: 3rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-price-large {
+      font-size: 2rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-note {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .tier-divider {
+      height: 1px;
+      background-color: var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .tier-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .tier-feature {
+      display: flex;
+      gap: 0.625rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .tier-feature::before {
+      content: '\2713';
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    .tier-feature.dimmed {
+      color: var(--muted);
+    }
+
+    .tier-feature.dimmed::before {
+      color: var(--border);
+    }
+
+    /* =========================================================
+       WAITLIST FORM
+    ========================================================= */
+    #waitlist {
+      background-color: var(--light);
+    }
+
+    .waitlist-inner {
+      max-width: 600px;
+      margin: 0 auto;
       text-align: center;
     }
-    .email-section .section-body { margin: 0 auto; }
-    .email-form {
-      display: flex;
-      gap: 0.65rem;
-      max-width: 430px;
-      margin: 2rem auto 0;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .email-form input[type="email"] {
-      flex: 1;
-      min-width: 210px;
-      padding: 0.72rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      font-family: var(--font);
-      font-size: 0.93rem;
-      background: var(--white);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .email-form input[type="email"]:focus { border-color: var(--acc1); }
-    .email-form input::placeholder { color: #bbb; }
-    .email-fine { font-size: 0.78rem; color: #bbb; margin-top: 0.7rem; }
 
-    /* ── FOOTER ─────────────────────────────────────── */
-    footer {
-      background: var(--acc3);
-      padding: 3rem 2rem;
+    .waitlist-inner .section-sub {
+      margin: 0 auto 2.5rem;
     }
-    .footer-row {
-      max-width: 1020px;
-      margin: 0 auto;
+
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-field-group {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+    }
+
+    .form-input {
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background-color: var(--surface);
+      color: var(--text);
+      width: 100%;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: var(--muted);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(45,106,143,.15);
+    }
+
+    .platform-radio-group {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      gap: 1.5rem;
     }
-    .footer-brand-name {
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: #fff;
-      letter-spacing: -0.03em;
-    }
-    .footer-brand-sub { font-size: 0.75rem; color: rgba(255,255,255,.45); margin-top: 2px; }
 
-    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,.55);
-      font-size: 0.85rem;
-      transition: color 0.2s;
+    .platform-radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.875rem;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      background-color: var(--surface);
+      transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+      font-family: var(--font);
+      font-weight: 500;
+      user-select: none;
     }
-    .footer-links a:hover { color: #fff; }
 
-    .footer-copy {
-      max-width: 1020px;
-      margin: 1.75rem auto 0;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,.1);
-      font-size: 0.75rem;
-      color: rgba(255,255,255,.35);
+    .platform-radio-label.selected {
+      border-color: var(--primary);
+      background-color: var(--light);
+      color: var(--primary);
+    }
+
+    .platform-radio-label input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .form-submit-btn {
+      padding: 0.8125rem 2rem;
+      font-size: 1rem;
+    }
+
+    .form-fine {
+      font-size: 0.8125rem;
+      color: var(--muted);
       text-align: center;
     }
 
-    /* ── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width: 700px) {
-      .privacy-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .nav-links a.text-link { display: none; }
-      .pricing-grid { grid-template-columns: 1fr; }
+    /* Form states */
+    #form-success,
+    #form-error {
+      display: none;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    #form-success {
+      background-color: #E6F9EF;
+      border: 1px solid #A8DEC0;
+      color: #1A6B3C;
+    }
+
+    #form-error {
+      background-color: #FEF0F0;
+      border: 1px solid #F5C0C0;
+      color: #9B2020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #form-success {
+        background-color: #0D2E1C;
+        border-color: #1A5032;
+        color: #4DB87A;
+      }
+
+      #form-error {
+        background-color: #2A0D0D;
+        border-color: #5A1C1C;
+        color: #F08080;
+      }
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    #site-footer {
+      background-color: var(--text);
+      padding: 3.5rem 0 2rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand-name {
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+      margin-bottom: 0.375rem;
+    }
+
+    .footer-brand-sub {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .footer-link:hover {
+      color: #fff;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background-color: rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-legal {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.7;
+      max-width: 720px;
+    }
+
+    /* =========================================================
+       ACCESSIBILITY — SCREEN READER ONLY
+    ========================================================= */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* =========================================================
+       RESPONSIVE — TABLET
+    ========================================================= */
+    @media (max-width: 960px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .why-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .audience-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+
+    /* =========================================================
+       RESPONSIVE — MOBILE
+    ========================================================= */
+    @media (max-width: 768px) {
+      .section {
+        padding: 3.5rem 0;
+      }
+
+      .container {
+        padding: 0 1.25rem;
+      }
+
+      #hero {
+        padding: 6rem 1.25rem 3.5rem;
+        min-height: 100svh;
+      }
+
+      .hero-cta-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-cta-group .btn {
+        justify-content: center;
+      }
+
+      #demo-video {
+        padding: 0 1.25rem 3.5rem;
+      }
+
+      .audience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-field-group {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        gap: 1.25rem;
+      }
+
+      .why-inner {
+        gap: 2.5rem;
+      }
+
+      .header-inner {
+        padding: 0 1.25rem;
+      }
+    }
+
+    /* =========================================================
+       FOCUS STYLES (ACCESSIBILITY)
+    ========================================================= */
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* =========================================================
+       LOADING SPINNER
+    ========================================================= */
+    .btn-loading {
+      opacity: 0.7;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-left: 0.375rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════ NAV ══════════ -->
-  <nav>
-    <a href="#" class="nav-logo">
-      <img src="img/icon.svg" alt="Ibis">
-      <span class="nav-logo-name">Ibis</span>
-    </a>
-    <div class="nav-links">
-      <a href="#how-it-works" class="text-link">How it works</a>
-      <a href="#pricing" class="text-link">Pricing</a>
-      <a href="#notify" class="btn btn-red btn-sm">Get notified at launch</a>
+  <!-- =========================================================
+       STICKY HEADER
+  ========================================================= -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="#hero" class="header-logo" aria-label="Ibis — home">Ibis</a>
+      <a href="#waitlist" class="btn btn-primary header-cta">Join the waitlist</a>
     </div>
-  </nav>
+  </header>
 
-  <!-- ══════════ HERO ══════════ -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5zm0 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-9a3 3 0 0 0-3 3v3h6V6a3 3 0 0 0-3-3z"/></svg>
-        100% local &mdash; no cloud, ever
-      </div>
 
-      <h1>Your recordings<br><em>stay on your machine.</em></h1>
+  <!-- =========================================================
+       HERO
+  ========================================================= -->
+  <section id="hero" aria-label="Introduction">
+    <div class="hero-inner">
+      <div class="kicker-pill" aria-label="100% local — no cloud, ever">100% local — no cloud, ever</div>
+
+      <h1 class="hero-h1">Your recordings stay<br>on your machine.</h1>
 
       <p class="hero-sub">
-        Ibis watches a folder on your Windows PC and transcribes every audio file
-        automatically — using AI that runs entirely offline. Drop a voice memo. Get a text file.
-        Nothing ever leaves your computer.
+        Ibis watches a folder on your Windows PC and transcribes every audio file automatically — using AI that runs entirely offline. Drop a voice memo. Get a text file. Nothing ever leaves your computer.
       </p>
 
-      <div class="hero-cta">
-        <a href="#notify" class="btn btn-red btn-lg">Notify me at launch &rarr;</a>
-        <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
+      <div class="hero-cta-group">
+        <a href="#waitlist" class="btn btn-primary">Join the waitlist &rarr;</a>
+        <a href="#how-it-works" class="btn btn-ghost">See how it works</a>
       </div>
 
-      <div class="hero-meta">
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Windows 10 &amp; 11
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          One-time purchase
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          No subscription
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          No internet after install
-        </span>
+      <p class="hero-fine">Free to join &nbsp;&middot;&nbsp; $24 at launch &mdash; one-time, no subscription</p>
+
+      <div class="platform-badges" aria-label="Platform availability">
+        <div class="platform-badge badge-available">
+          <span class="platform-badge-icon" aria-hidden="true">🪟</span>
+          <span class="platform-badge-text">
+            <span class="platform-badge-name">Windows</span>
+            <span class="platform-badge-status">Available</span>
+          </span>
+        </div>
+        <div class="platform-badge badge-soon">
+          <span class="platform-badge-icon" aria-hidden="true">&#xF8FF;</span>
+          <span class="platform-badge-text">
+            <span class="platform-badge-name">macOS</span>
+            <span class="platform-badge-status">Coming soon</span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ DEMO VIDEO ══════════ -->
-  <div class="demo-wrap">
-    <video
-      src="video/out/ibis-demo.mp4"
-      autoplay
-      muted
-      loop
-      playsinline
-      style="width:100%;border-radius:14px;display:block;box-shadow:0 20px 60px rgba(44,62,80,.25);"
-    ></video>
+
+  <!-- =========================================================
+       DEMO VIDEO
+  ========================================================= -->
+  <div id="demo-video" aria-label="Product demo video">
+    <div class="video-wrapper">
+      <video
+        src="video/out/ibis-demo.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-label="Ibis demo — watch-folder transcription in action"
+      ></video>
+    </div>
   </div>
 
-  <!-- ══════════ HOW IT WORKS ══════════ -->
-  <section class="how-section" id="how-it-works">
+
+  <!-- =========================================================
+       HOW IT WORKS
+  ========================================================= -->
+  <section id="how-it-works" class="section" aria-labelledby="hiw-heading">
     <div class="container">
-      <div class="label">How it works</div>
-      <h2 class="section-title">Set it once.<br>Forget it exists.</h2>
-      <p class="section-body">
-        Ibis lives in your system tray and watches a folder you choose.
-        Every audio file you drop in becomes a transcript, automatically,
-        while you do other things.
-      </p>
-
-      <div class="how-grid">
-        <div class="how-card">
-          <div class="how-number">1</div>
-          <h3>Point Ibis at a folder</h3>
-          <p>
-            Choose a Watch Folder on your PC during setup. Ibis monitors it silently
-            in the background from that moment on.
-          </p>
-        </div>
-        <div class="how-card">
-          <div class="how-number">2</div>
-          <h3>Drop in an audio file</h3>
-          <p>
-            Add any MP3, WAV, or M4A — from your voice recorder, phone, or podcast software.
-            Ibis detects it immediately and begins transcribing using the on-device AI model.
-          </p>
-        </div>
-        <div class="how-card">
-          <div class="how-number">3</div>
-          <h3>Your transcript is ready</h3>
-          <p>
-            A <code>.txt</code> file appears in your Transcripts folder, timestamped and named
-            to match your recording. A toast notification confirms it's done. The original
-            audio moves to Completed.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ PRIVACY ══════════ -->
-  <div class="privacy-section">
-    <div class="container privacy-grid">
-      <div>
-        <div class="label">Why Ibis?</div>
-        <h2 class="section-title">Your audio is sensitive.<br>Treat it that way.</h2>
-        <p class="section-body">
-          Cloud transcription services receive your recordings, process them on remote servers,
-          and store them under terms of service you agreed to but probably didn't read. Ibis doesn't.
-          The AI model runs on your machine. Your audio never moves.
+      <div class="how-header">
+        <span class="eyebrow">How it works</span>
+        <h2 id="hiw-heading" class="section-heading">Set it once.<br>Forget it exists.</h2>
+        <p class="section-sub">
+          Ibis lives in your system tray and watches a folder you choose. Every audio file you drop in becomes a transcript, automatically, while you do other things.
         </p>
-        <div class="privacy-cta">
-          <a href="#notify" class="btn btn-outline-white">Get notified at launch &rarr;</a>
-        </div>
       </div>
 
-      <div class="privacy-list">
-        <div class="privacy-item">
-          <div class="privacy-icon">&#x1F512;</div>
-          <div>
-            <h4>No audio ever leaves your machine</h4>
-            <p>Ibis uses a fully local AI model. No internet connection is required after installation — ever.</p>
-          </div>
-        </div>
-        <div class="privacy-item">
-          <div class="privacy-icon">&#x1F4B3;</div>
-          <div>
-            <h4>One-time purchase. No subscription.</h4>
-            <p>Pay once, own it forever. No monthly fee, no per-minute charges, no usage limits.</p>
-          </div>
-        </div>
-        <div class="privacy-item">
-          <div class="privacy-icon">&#x1F310;</div>
-          <div>
-            <h4>99 languages, bundled locally</h4>
-            <p>Powered by OpenAI's Whisper large-v3-turbo model, packaged entirely inside the app installer.</p>
-          </div>
-        </div>
-        <div class="privacy-item">
-          <div class="privacy-icon">&#x26A1;</div>
-          <div>
-            <h4>Runs on any modern Windows PC</h4>
-            <p>No GPU required. Ibis uses int8-quantized CPU inference — fast on everyday consumer hardware.</p>
-          </div>
-        </div>
+      <div class="steps-grid" role="list">
+        <article class="step-card" role="listitem">
+          <div class="step-number" aria-label="Step 1">1</div>
+          <h3>Point Ibis at a folder</h3>
+          <p>Choose a Watch Folder during setup. Ibis monitors it silently in the background, with no window open and no manual intervention required.</p>
+        </article>
+
+        <article class="step-card" role="listitem">
+          <div class="step-number" aria-label="Step 2">2</div>
+          <h3>Drop in an audio file</h3>
+          <p>Add any MP3, WAV, or M4A file. Ibis detects it immediately and begins transcribing using the on-device AI model &mdash; no internet, no waiting for a server.</p>
+        </article>
+
+        <article class="step-card" role="listitem">
+          <div class="step-number" aria-label="Step 3">3</div>
+          <h3>Your transcript is ready</h3>
+          <p>A .txt file appears in your Transcripts folder, timestamped and named to match your recording. A toast notification confirms it&rsquo;s done. The original audio moves to Completed.</p>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ══════════ AUDIENCE ══════════ -->
-  <section class="audience-section">
+
+  <!-- =========================================================
+       PRIVACY / WHY IBIS
+  ========================================================= -->
+  <section id="why-ibis" aria-labelledby="why-heading">
     <div class="container">
-      <div class="label">Who uses Ibis</div>
-      <h2 class="section-title">Built for people whose<br>recordings are confidential.</h2>
-      <p class="section-body">
-        Whether you're bound by professional ethics or just value your own privacy,
-        Ibis gives you accurate transcription without putting your data in anyone else's hands.
-      </p>
+      <div class="why-inner">
 
-      <div class="audience-grid">
-        <div class="audience-card">
-          <div class="icon">&#x1F4F0;</div>
+        <div class="why-left">
+          <span class="eyebrow" style="color:var(--mid);">Privacy, by design</span>
+          <h2 id="why-heading" class="section-heading" style="color:#fff;font-style:italic;">Your audio is sensitive.<br>Treat it that way.</h2>
+          <p>
+            Cloud transcription services receive your recordings, process them on remote servers, and store them under terms of service you agreed to but probably didn&rsquo;t read. Ibis doesn&rsquo;t. The AI model runs on your machine. Your audio never moves.
+          </p>
+          <a href="#waitlist" class="btn btn-ghost-white">Join the waitlist &rarr;</a>
+        </div>
+
+        <div class="why-right">
+          <ul class="privacy-items" aria-label="Privacy features">
+            <li class="privacy-item">
+              <span class="privacy-item-icon" aria-hidden="true">🔒</span>
+              <div class="privacy-item-body">
+                <h4>No audio ever leaves your machine</h4>
+                <p>Ibis uses a fully local AI model. No internet connection is required after installation &mdash; ever.</p>
+              </div>
+            </li>
+            <li class="privacy-item">
+              <span class="privacy-item-icon" aria-hidden="true">💳</span>
+              <div class="privacy-item-body">
+                <h4>One-time purchase. No subscription.</h4>
+                <p>Pay once, own it forever. No monthly fee, no per-minute charges, no usage limits.</p>
+              </div>
+            </li>
+            <li class="privacy-item">
+              <span class="privacy-item-icon" aria-hidden="true">🌐</span>
+              <div class="privacy-item-body">
+                <h4>99 languages, bundled locally</h4>
+                <p>Powered by OpenAI&rsquo;s Whisper large-v3-turbo model, packaged entirely inside the app installer.</p>
+              </div>
+            </li>
+            <li class="privacy-item">
+              <span class="privacy-item-icon" aria-hidden="true">⚡</span>
+              <div class="privacy-item-body">
+                <h4>Runs on any modern Windows PC</h4>
+                <p>No GPU required. Ibis uses int8-quantized CPU inference &mdash; fast on everyday consumer hardware.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       WHO USES IBIS
+  ========================================================= -->
+  <section id="who-uses" class="section" aria-labelledby="who-heading">
+    <div class="container">
+      <div class="who-header">
+        <span class="eyebrow">Who uses Ibis</span>
+        <h2 id="who-heading" class="section-heading">Built for people whose<br>recordings are confidential.</h2>
+        <p class="section-sub">
+          Whether you&rsquo;re bound by professional ethics or just value your own privacy, Ibis gives you accurate transcription without putting your data in anyone else&rsquo;s hands.
+        </p>
+      </div>
+
+      <div class="audience-grid" role="list">
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">📰</div>
           <h3>Journalists</h3>
           <p>Protect your sources. Transcribe interviews locally before they ever touch a remote server.</p>
-        </div>
-        <div class="audience-card">
-          <div class="icon">&#x1FA7A;</div>
+        </article>
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">🩺</div>
           <h3>Therapists &amp; Clinicians</h3>
           <p>HIPAA compliance starts with keeping patient audio on your machine. Full stop.</p>
-        </div>
-        <div class="audience-card">
-          <div class="icon">&#x2696;&#xFE0F;</div>
+        </article>
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">⚖️</div>
           <h3>Attorneys</h3>
           <p>Attorney-client privilege applies to recordings too. Keep deposition notes where they belong.</p>
-        </div>
-        <div class="audience-card">
-          <div class="icon">&#x1F52C;</div>
+        </article>
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">🔬</div>
           <h3>Researchers</h3>
           <p>IRB protocols often prohibit cloud processing of participant data. Ibis solves that cleanly.</p>
-        </div>
-        <div class="audience-card">
-          <div class="icon">&#x1F9E0;</div>
+        </article>
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">🧠</div>
           <h3>Knowledge Workers</h3>
           <p>Voice notes into Obsidian, Notion, or anywhere you build your second brain. Automatically.</p>
-        </div>
-        <div class="audience-card">
-          <div class="icon">&#x1F399;&#xFE0F;</div>
+        </article>
+
+        <article class="audience-card" role="listitem">
+          <div class="audience-icon" aria-hidden="true">🎙️</div>
           <h3>Podcasters &amp; Creators</h3>
-          <p>Transcribe recordings for show notes, captions, and repurposed content — offline, in seconds.</p>
-        </div>
+          <p>Transcribe recordings for show notes, captions, and repurposed content &mdash; offline, in seconds.</p>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <!-- ══════════ PRICING ══════════ -->
-  <section class="pricing-section" id="pricing">
+
+  <!-- =========================================================
+       PRICING
+  ========================================================= -->
+  <section id="pricing" class="section" aria-labelledby="pricing-heading">
     <div class="container">
-      <div class="label">Pricing</div>
-      <h2 class="section-title">Simple. One-time. Yours.</h2>
-      <p class="section-body">
-        No tiers that lock core features behind a paywall. No surprise charges.
-        Buy once, use it forever on one machine.
-      </p>
+      <div class="pricing-header">
+        <span class="eyebrow">Pricing</span>
+        <h2 id="pricing-heading" class="section-heading">Simple. One-time. Yours.</h2>
+        <p class="section-sub">
+          No tiers that lock core features behind a paywall. No surprise charges. Buy once, use it forever on one machine.
+        </p>
+      </div>
 
-      <div class="pricing-grid">
+      <div class="pricing-grid" role="list">
 
-        <!-- PERSONAL -->
-        <div class="pricing-card featured">
-          <div class="pricing-pill pill-red">Launching Soon</div>
-          <div class="pricing-tier">Personal</div>
-          <div class="pricing-price"><sup>$</sup>24</div>
-          <div class="pricing-note">one-time &nbsp;&middot;&nbsp; single machine</div>
-          <hr class="pricing-divider">
-          <ul class="feature-list">
-            <li><span class="ck">&#x2713;</span> Automatic watch-folder transcription</li>
-            <li><span class="ck">&#x2713;</span> Whisper large-v3-turbo AI model included</li>
-            <li><span class="ck">&#x2713;</span> 99 languages, fully offline</li>
-            <li><span class="ck">&#x2713;</span> MP3, WAV, and M4A support</li>
-            <li><span class="ck">&#x2713;</span> Plain text &amp; subtitle (.srt) output</li>
-            <li><span class="ck">&#x2713;</span> Windows 10 &amp; 11</li>
-            <li><span class="ck">&#x2713;</span> Runs silently in system tray</li>
-            <li><span class="ck">&#x2713;</span> No internet required after install</li>
-            <li><span class="ck">&#x2713;</span> Lifetime updates for v1.x</li>
+        <!-- PERSONAL (featured) -->
+        <article class="pricing-card featured" role="listitem" aria-label="Personal plan — $24 one-time">
+          <span class="tier-pill tier-pill-blue">Launching Soon</span>
+          <div class="tier-label">Personal</div>
+          <div class="tier-price">$24</div>
+          <div class="tier-note">one-time &nbsp;&middot;&nbsp; single machine</div>
+          <div class="tier-divider" aria-hidden="true"></div>
+          <ul class="tier-features" aria-label="Personal plan features">
+            <li class="tier-feature">Automatic watch-folder transcription</li>
+            <li class="tier-feature">Whisper large-v3-turbo AI model included</li>
+            <li class="tier-feature">99 languages, fully offline</li>
+            <li class="tier-feature">MP3, WAV, and M4A support</li>
+            <li class="tier-feature">Plain text &amp; subtitle (.srt) output</li>
+            <li class="tier-feature">Windows 10 &amp; 11</li>
+            <li class="tier-feature">Runs silently in system tray</li>
+            <li class="tier-feature">No internet required after install</li>
+            <li class="tier-feature">Lifetime updates for v1.x</li>
           </ul>
-          <a href="#notify" class="btn btn-red">Notify me at launch &rarr;</a>
-        </div>
+          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
+        </article>
 
         <!-- PRO -->
-        <div class="pricing-card">
-          <div class="pricing-pill pill-navy">Coming in v2</div>
-          <div class="pricing-tier">Pro</div>
-          <div class="pricing-price"><sup>$</sup>49</div>
-          <div class="pricing-note">one-time &nbsp;&middot;&nbsp; single machine</div>
-          <hr class="pricing-divider">
-          <ul class="feature-list">
-            <li><span class="ck">&#x2713;</span> Everything in Personal</li>
-            <li><span class="ck">&#x2713;</span> <strong>Projects</strong> — separate inbox, transcripts &amp; archive per client, case, or study</li>
-            <li><span class="ck">&#x2713;</span> Up to 20 independent projects</li>
-            <li><span class="ck">&#x2713;</span> Priority support</li>
-            <li><span class="dim">&#x25CB;</span> <span class="dim-text">LLM summarization (planned)</span></li>
-            <li><span class="dim">&#x25CB;</span> <span class="dim-text">Speaker diarization (planned)</span></li>
-            <li><span class="dim">&#x25CB;</span> <span class="dim-text">Video file support (planned)</span></li>
+        <article class="pricing-card" role="listitem" aria-label="Pro plan — $49 one-time, coming in v2">
+          <span class="tier-pill tier-pill-dark">Coming in v2</span>
+          <div class="tier-label">Pro</div>
+          <div class="tier-price">$49</div>
+          <div class="tier-note">one-time &nbsp;&middot;&nbsp; single machine</div>
+          <div class="tier-divider" aria-hidden="true"></div>
+          <ul class="tier-features" aria-label="Pro plan features">
+            <li class="tier-feature">Everything in Personal</li>
+            <li class="tier-feature">Projects &mdash; separate inbox, transcripts &amp; archive per client, case, or study</li>
+            <li class="tier-feature">Up to 20 independent projects</li>
+            <li class="tier-feature">Priority support</li>
+            <li class="tier-feature dimmed">LLM summarization <em>(planned)</em></li>
+            <li class="tier-feature dimmed">Speaker diarization <em>(planned)</em></li>
+            <li class="tier-feature dimmed">Video file support <em>(planned)</em></li>
           </ul>
-          <a href="mailto:hello@simdadllc.com?subject=Ibis%20Pro%20%E2%80%94%20Waitlist" class="btn btn-navy">Join the Pro waitlist &rarr;</a>
-        </div>
+          <a
+            href="mailto:hello@simdadllc.com?subject=Ibis%20Pro%20%E2%80%94%20Waitlist"
+            class="btn btn-ghost-dark btn-full"
+          >Join the Pro waitlist &rarr;</a>
+        </article>
 
         <!-- TEAM -->
-        <div class="pricing-card">
-          <div class="pricing-pill pill-navy">Coming in v3</div>
-          <div class="pricing-tier">Team</div>
-          <div class="pricing-price" style="font-size:2rem;line-height:1.2;padding-top:0.4rem;">Multi-seat</div>
-          <div class="pricing-note">for practices, firms &amp; research groups</div>
-          <hr class="pricing-divider">
-          <ul class="feature-list">
-            <li><span class="ck">&#x2713;</span> Everything in Pro</li>
-            <li><span class="ck">&#x2713;</span> 3&ndash;5 seat license bundle</li>
-            <li><span class="ck">&#x2713;</span> Independent license per seat</li>
-            <li><span class="ck">&#x2713;</span> No shared infrastructure required</li>
-            <li><span class="ck">&#x2713;</span> Works fully offline on every machine</li>
+        <article class="pricing-card" role="listitem" aria-label="Team plan — multi-seat, coming in v3">
+          <span class="tier-pill tier-pill-dark">Coming in v3</span>
+          <div class="tier-label">Team</div>
+          <div class="tier-price-large">Multi-seat</div>
+          <div class="tier-note">for practices, firms &amp; research groups</div>
+          <div class="tier-divider" aria-hidden="true"></div>
+          <ul class="tier-features" aria-label="Team plan features">
+            <li class="tier-feature">Everything in Pro</li>
+            <li class="tier-feature">3&ndash;5 seat license bundle</li>
+            <li class="tier-feature">Independent license per seat</li>
+            <li class="tier-feature">No shared infrastructure required</li>
+            <li class="tier-feature">Works fully offline on every machine</li>
           </ul>
-          <a href="mailto:hello@simdadllc.com" class="btn btn-ghost">Contact us for team pricing</a>
-        </div>
+          <a
+            href="mailto:hello@simdadllc.com"
+            class="btn btn-ghost-dark btn-full"
+          >Contact us for team pricing</a>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <!-- ══════════ EMAIL CAPTURE ══════════ -->
-  <section class="email-section" id="notify">
+
+  <!-- =========================================================
+       WAITLIST FORM
+  ========================================================= -->
+  <section id="waitlist" class="section" aria-labelledby="waitlist-heading">
     <div class="container">
-      <div class="label" style="text-align:center;">Early access</div>
-      <h2 class="section-title">Be the first to know.</h2>
-      <p class="section-body">
-        Ibis v1.0 is complete and launching soon. Leave your email and we&rsquo;ll send you one notification
-        the moment it&rsquo;s available. No drip campaigns. No newsletters.
-        Just: it&rsquo;s ready.
-      </p>
-      <form class="email-form" action="#" method="post" onsubmit="return false;">
-        <input type="email" placeholder="your@email.com" required autocomplete="email">
-        <button type="submit" class="btn btn-red">Notify me</button>
-      </form>
-      <p class="email-fine">No spam. One email at launch. Unsubscribe anytime.</p>
+      <div class="waitlist-inner">
+        <span class="eyebrow">Early access</span>
+        <h2 id="waitlist-heading" class="section-heading">Be the first to know.</h2>
+        <p class="section-sub">
+          Ibis v1.0 is complete and launching soon. Join the waitlist and we&rsquo;ll send you one notification the moment it&rsquo;s available. No drip campaigns. No newsletters. Just: it&rsquo;s ready.
+        </p>
+
+        <form
+          id="waitlist-form"
+          class="waitlist-form"
+          novalidate
+          aria-label="Waitlist signup form"
+        >
+          <div class="form-field-group" id="form-field-group">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <input
+              type="email"
+              id="waitlist-email"
+              name="email"
+              class="form-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+              aria-required="true"
+            />
+            <button
+              type="submit"
+              id="submit-btn"
+              class="btn btn-primary form-submit-btn"
+            >Notify me</button>
+          </div>
+
+          <fieldset id="platform-fieldset" style="border:none;padding:0;">
+            <legend style="font-size:0.8125rem;color:var(--muted);margin-bottom:0.625rem;display:block;text-align:center;">Which platform are you on?</legend>
+            <div class="platform-radio-group" role="group">
+              <label class="platform-radio-label selected" id="label-windows">
+                <input type="radio" name="platform" value="windows" checked />
+                🪟 Windows
+              </label>
+              <label class="platform-radio-label" id="label-macos">
+                <input type="radio" name="platform" value="macos" />
+                &#xF8FF; macOS
+              </label>
+              <label class="platform-radio-label" id="label-both">
+                <input type="radio" name="platform" value="both" />
+                Both
+              </label>
+            </div>
+          </fieldset>
+
+          <div id="form-success" role="status" aria-live="polite">
+            &#10003; You&rsquo;re on the list. We&rsquo;ll send one email the moment Ibis launches. That&rsquo;s it.
+          </div>
+          <div id="form-error" role="alert" aria-live="assertive">
+            Something went wrong. Please try again or email us at
+            <a href="mailto:hello@simdadllc.com" style="color:inherit;text-decoration:underline;">hello@simdadllc.com</a>.
+          </div>
+
+          <p class="form-fine">No spam. One email at launch. Unsubscribe anytime.</p>
+        </form>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════ FOOTER ══════════ -->
-  <footer>
-    <div class="footer-row">
-      <div>
-        <div class="footer-brand-name">Ibis</div>
-        <div class="footer-brand-sub">A SIM DAD LLC product</div>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-brand-name">Ibis</span>
+          <span class="footer-brand-sub">A SIM DAD LLC product</span>
+        </div>
+        <nav aria-label="Footer navigation">
+          <ul class="footer-links">
+            <li><a href="#how-it-works" class="footer-link">How it works</a></li>
+            <li><a href="#pricing" class="footer-link">Pricing</a></li>
+            <li><a href="#waitlist" class="footer-link">Early access</a></li>
+            <li><a href="https://simdadllc.com" class="footer-link" target="_blank" rel="noopener noreferrer">simdadllc.com</a></li>
+          </ul>
+        </nav>
       </div>
-      <div class="footer-links">
-        <a href="#how-it-works">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#notify">Early access</a>
-        <a href="https://simdadllc.com">simdadllc.com</a>
-      </div>
+      <div class="footer-divider" aria-hidden="true"></div>
+      <p class="footer-legal">
+        &copy; 2026 SIM DAD LLC. All rights reserved.
+        Ibis is an independent product and is not affiliated with OpenAI.
+        Whisper is an open-source model released by OpenAI under the MIT license.
+      </p>
     </div>
-    <p class="footer-copy">
-      &copy; 2026 SIM DAD LLC. All rights reserved.
-      Ibis is an independent product and is not affiliated with OpenAI.
-      Whisper is an open-source model released by OpenAI under the MIT license.
-    </p>
   </footer>
+
+
+  <script>
+    'use strict';
+
+    // =========================================================
+    // CONFIG — set before launch
+    // =========================================================
+    const WAITLIST_ENDPOINT = ""; // Set your Brevo/email endpoint here before launch
+
+    // =========================================================
+    // STICKY HEADER — add .scrolled after 40px scroll
+    // =========================================================
+    (function initStickyHeader() {
+      var header = document.getElementById('site-header');
+      if (!header) return;
+
+      function onScroll() {
+        if (window.scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); // run once in case page is already scrolled on load
+    })();
+
+    // =========================================================
+    // PLATFORM RADIO BUTTONS — styled toggle pills
+    // =========================================================
+    (function initPlatformRadios() {
+      var radios = document.querySelectorAll('input[name="platform"]');
+      var labels = {
+        windows: document.getElementById('label-windows'),
+        macos:   document.getElementById('label-macos'),
+        both:    document.getElementById('label-both')
+      };
+
+      function updateSelected() {
+        radios.forEach(function(radio) {
+          var lbl = labels[radio.value];
+          if (!lbl) return;
+          if (radio.checked) {
+            lbl.classList.add('selected');
+          } else {
+            lbl.classList.remove('selected');
+          }
+        });
+      }
+
+      radios.forEach(function(radio) {
+        radio.addEventListener('change', updateSelected);
+      });
+
+      // Also handle label clicks directly for robustness
+      Object.values(labels).forEach(function(lbl) {
+        if (!lbl) return;
+        lbl.addEventListener('click', function() {
+          // Short timeout to allow radio state to update
+          setTimeout(updateSelected, 0);
+        });
+      });
+    })();
+
+    // =========================================================
+    // WAITLIST FORM — async submit with loading/success/error
+    // =========================================================
+    (function initWaitlistForm() {
+      var form          = document.getElementById('waitlist-form');
+      var emailInput    = document.getElementById('waitlist-email');
+      var submitBtn     = document.getElementById('submit-btn');
+      var successEl     = document.getElementById('form-success');
+      var errorEl       = document.getElementById('form-error');
+      var fieldGroup    = document.getElementById('form-field-group');
+      var platformField = document.getElementById('platform-fieldset');
+
+      if (!form || !emailInput || !submitBtn) return;
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function setLoading(isLoading) {
+        var spinner = submitBtn.querySelector('.spinner');
+        if (isLoading) {
+          submitBtn.classList.add('btn-loading');
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending\u2026';
+          var s = document.createElement('span');
+          s.className = 'spinner';
+          s.setAttribute('aria-hidden', 'true');
+          submitBtn.appendChild(s);
+        } else {
+          submitBtn.classList.remove('btn-loading');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Notify me';
+        }
+      }
+
+      function showSuccess() {
+        if (fieldGroup)    fieldGroup.style.display    = 'none';
+        if (platformField) platformField.style.display = 'none';
+        successEl.style.display = 'block';
+        errorEl.style.display   = 'none';
+        successEl.focus();
+      }
+
+      function showError() {
+        errorEl.style.display   = 'block';
+        successEl.style.display = 'none';
+      }
+
+      function markEmailInvalid() {
+        emailInput.style.borderColor = '#C0392B';
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.focus();
+        function reset() {
+          emailInput.style.borderColor = '';
+          emailInput.removeAttribute('aria-invalid');
+          emailInput.removeEventListener('input', reset);
+        }
+        emailInput.addEventListener('input', reset);
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        errorEl.style.display = 'none';
+
+        var email    = emailInput.value.trim();
+        var platform = (form.querySelector('input[name="platform"]:checked') || {}).value || 'windows';
+
+        if (!email || !isValidEmail(email)) {
+          markEmailInvalid();
+          return;
+        }
+
+        // No endpoint configured — simulate success (dev/staging)
+        if (!WAITLIST_ENDPOINT) {
+          console.info('[Ibis waitlist] WAITLIST_ENDPOINT not set. Simulating success for:', email, '(' + platform + ')');
+          showSuccess();
+          return;
+        }
+
+        setLoading(true);
+
+        fetch(WAITLIST_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ email: email, platform: platform })
+        })
+        .then(function(response) {
+          if (response.ok) {
+            showSuccess();
+          } else {
+            return response.json().catch(function() { return {}; }).then(function(data) {
+              console.error('[Ibis waitlist] Server error:', response.status, data);
+              showError();
+            });
+          }
+        })
+        .catch(function(err) {
+          console.error('[Ibis waitlist] Network error:', err);
+          showError();
+        })
+        .finally(function() {
+          setLoading(false);
+        });
+      });
+    })();
+
+    // =========================================================
+    // SMOOTH SCROLL — JS fallback for older Safari
+    // (modern browsers handle scroll-behavior: smooth via CSS)
+    // =========================================================
+    (function initSmoothScrollFallback() {
+      if ('scrollBehavior' in document.documentElement.style) return;
+
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var id     = this.getAttribute('href');
+          var target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
