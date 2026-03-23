@@ -523,6 +523,19 @@
       .hero-actions .btn { width: 100%; justify-content: center; }
       .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
+    /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
+    .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
+    .oss-sub { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; max-width: 64ch; }
+    .oss-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .oss-item {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.25rem 0.7rem; border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.775rem; color: var(--muted); text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .oss-item:hover { color: var(--text); border-color: var(--muted); }
+    .oss-item-name { font-weight: 600; color: var(--text); }
   </style>
 </head>
 <body>
@@ -793,6 +806,25 @@
       </div>
     </div>
   </section>
+
+
+  <!-- OPEN SOURCE ATTRIBUTION -->
+  <div class="oss-section">
+    <div class="container">
+      <p class="oss-heading">Open source software</p>
+      <p class="oss-sub">Ibis is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
+      <div class="oss-grid">
+        <a class="oss-item" href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener"><span class="oss-item-name">faster-whisper</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/openai/whisper" target="_blank" rel="noopener"><span class="oss-item-name">OpenAI Whisper</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/gorakhargosh/watchdog" target="_blank" rel="noopener"><span class="oss-item-name">watchdog</span><span>Apache 2.0</span></a>
+        <a class="oss-item" href="https://python-pillow.org" target="_blank" rel="noopener"><span class="oss-item-name">Pillow</span><span>HPND</span></a>
+        <a class="oss-item" href="https://github.com/moses-palmer/pystray" target="_blank" rel="noopener"><span class="oss-item-name">pystray</span><span>LGPL-3.0</span></a>
+        <a class="oss-item" href="https://github.com/kivy/plyer" target="_blank" rel="noopener"><span class="oss-item-name">plyer</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/TomSchimansky/CustomTkinter" target="_blank" rel="noopener"><span class="oss-item-name">CustomTkinter</span><span>MIT</span></a>
+        <a class="oss-item" href="https://pyinstaller.org" target="_blank" rel="noopener"><span class="oss-item-name">PyInstaller</span><span>GPL-2.0 + bootloader exception</span></a>
+      </div>
+    </div>
+  </div>
 
 
   <!-- FOOTER -->
