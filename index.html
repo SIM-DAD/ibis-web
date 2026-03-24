@@ -845,11 +845,12 @@
 
 
   <script>
-    /* ── WAITLIST ENDPOINT ──────────────────────────────────────────
-       Set to your Brevo (or other) API endpoint before going live.
+    /* ── BREVO BACKEND ENDPOINT ─────────────────────────────────────
+       Set this to your own backend endpoint that calls Brevo Contacts API.
+       Do not expose your Brevo API key in frontend code.
        Leave empty to simulate success locally during development.
     ─────────────────────────────────────────────────────────────── */
-    const WAITLIST_ENDPOINT = "";
+    const BREVO_BACKEND_ENDPOINT = "";
 
     /* ── STICKY NAV ─────────────────────────────────────────────── */
     const nav = document.getElementById("nav");
@@ -879,7 +880,7 @@
       btn.disabled = true;
       btn.textContent = "Joining…";
 
-      if (!WAITLIST_ENDPOINT) {
+      if (!BREVO_BACKEND_ENDPOINT) {
         await new Promise(r => setTimeout(r, 600));
         form.style.display = "none";
         success.classList.add("visible");
@@ -887,12 +888,28 @@
       }
 
       try {
-        const res = await fetch(WAITLIST_ENDPOINT, {
+        const params = new URLSearchParams(window.location.search);
+        const payload = {
+          email,
+          listName: "ibis_waitlist",
+          attributes: {
+            PRODUCT: "Ibis",
+            SOURCE: "ibis-web",
+            PAGE_URL: window.location.href,
+            UTM_SOURCE: params.get("utm_source") || "",
+            UTM_MEDIUM: params.get("utm_medium") || "",
+            UTM_CAMPAIGN: params.get("utm_campaign") || ""
+          }
+        };
+
+        const res = await fetch(BREVO_BACKEND_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, attributes: { PRODUCT: "Ibis" } })
+          body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error("Request failed");
+
+        // Treat duplicate contact as success to avoid blocking signups.
+        if (!res.ok && res.status !== 409) throw new Error("Request failed");
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
