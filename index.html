@@ -9,7 +9,10 @@
   <meta property="og:title" content="Ibis — Private, Local Transcription for Windows">
   <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://useibis.app/img/gr-cover.jpg">
+  <meta property="og:url" content="https://useibis.app">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://useibis.app/img/gr-cover.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -655,8 +658,8 @@
           <p>Ibis uses a fully local AI model. No internet connection is required after installation &mdash; ever.</p>
         </div>
         <div class="privacy-item">
-          <h4>One-time purchase. No subscription.</h4>
-          <p>Pay once, own it forever. No monthly fee, no per-minute charges, no usage limits.</p>
+          <h4>Encrypted at rest with your key</h4>
+          <p>Audio in the Completed folder is encrypted using age v1 (X25519). The secret key lives in the Windows Credential Manager. You hold it; we never see it.</p>
         </div>
         <div class="privacy-item">
           <h4>99 languages, bundled locally</h4>
@@ -669,6 +672,33 @@
       </div>
       <br><br>
       <a href="#waitlist" class="btn btn-ghost-white">Join the waitlist &rarr;</a>
+    </div>
+  </section>
+
+
+  <!-- ACCURACY -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Accuracy</span>
+      <h2>Cloud-grade accuracy.<br>Zero cloud dependency.</h2>
+      <p class="section-sub">
+        On the standard public ASR benchmark, Ibis hits
+        <strong>1.94% word-error rate on LibriSpeech test-clean</strong> and
+        <strong>3.87% on test-other</strong> (harder audio with accents and noise),
+        using Whisper large-v3-turbo with int8 quantization. Both numbers are
+        within 0.27 percentage points of OpenAI&rsquo;s published full-precision baselines.
+      </p>
+      <p class="section-sub" style="margin-top:1.5rem;font-size:0.95rem;">
+        A note on speed: Ibis v1.0 runs on CPU, so expect roughly real-time
+        transcription on consumer hardware. A v1.0.1 release will detect available
+        GPU and accelerate substantially. Accuracy is unaffected by the device
+        choice; quantization (int8) is identical on CPU and CUDA.
+      </p>
+      <p class="section-sub" style="margin-top:1.5rem;font-size:0.95rem;">
+        Methodology, per-split breakdown, and full reproducibility commands are in
+        the substantiation paper at
+        <a href="https://doi.org/10.5281/zenodo.19931717" style="color:var(--accent);text-decoration:underline;">doi.org/10.5281/zenodo.19931717</a>.
+      </p>
     </div>
   </section>
 
@@ -689,7 +719,7 @@
         </div>
         <div class="audience-cell">
           <h3>Therapists &amp; Clinicians</h3>
-          <p>HIPAA compliance starts with keeping patient audio on your machine. Full stop.</p>
+          <p>Local-only transcription helps support HIPAA compliance by keeping patient audio off remote servers entirely.</p>
         </div>
         <div class="audience-cell">
           <h3>Attorneys</h3>
@@ -755,7 +785,7 @@
             <li class="dimmed">Speaker diarization <em>(planned)</em></li>
             <li class="dimmed">Video file support <em>(planned)</em></li>
           </ul>
-          <a href="mailto:hello@simdadllc.com?subject=Ibis%20Pro%20Waitlist" class="btn btn-ghost-dark btn-full">Join the Pro waitlist &rarr;</a>
+          <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Pro%20Waitlist" class="btn btn-ghost-dark btn-full">Join the Pro waitlist &rarr;</a>
         </div>
 
         <div class="pricing-card">
@@ -770,7 +800,7 @@
             <li>No shared infrastructure required</li>
             <li>Works fully offline on every machine</li>
           </ul>
-          <a href="mailto:hello@simdadllc.com" class="btn btn-ghost-dark btn-full">Contact us for team pricing</a>
+          <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing" class="btn btn-ghost-dark btn-full">Contact us for team pricing</a>
         </div>
 
       </div>
@@ -816,11 +846,10 @@
       <div class="oss-grid">
         <a class="oss-item" href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener"><span class="oss-item-name">faster-whisper</span><span>MIT</span></a>
         <a class="oss-item" href="https://github.com/openai/whisper" target="_blank" rel="noopener"><span class="oss-item-name">OpenAI Whisper</span><span>MIT</span></a>
+        <a class="oss-item" href="https://wiki.qt.io/Qt_for_Python" target="_blank" rel="noopener"><span class="oss-item-name">PySide6 / Qt</span><span>LGPL-3.0</span></a>
         <a class="oss-item" href="https://github.com/gorakhargosh/watchdog" target="_blank" rel="noopener"><span class="oss-item-name">watchdog</span><span>Apache 2.0</span></a>
+        <a class="oss-item" href="https://github.com/samschott/desktop-notifier" target="_blank" rel="noopener"><span class="oss-item-name">desktop-notifier</span><span>MIT</span></a>
         <a class="oss-item" href="https://python-pillow.org" target="_blank" rel="noopener"><span class="oss-item-name">Pillow</span><span>HPND</span></a>
-        <a class="oss-item" href="https://github.com/moses-palmer/pystray" target="_blank" rel="noopener"><span class="oss-item-name">pystray</span><span>LGPL-3.0</span></a>
-        <a class="oss-item" href="https://github.com/kivy/plyer" target="_blank" rel="noopener"><span class="oss-item-name">plyer</span><span>MIT</span></a>
-        <a class="oss-item" href="https://github.com/TomSchimansky/CustomTkinter" target="_blank" rel="noopener"><span class="oss-item-name">CustomTkinter</span><span>MIT</span></a>
         <a class="oss-item" href="https://pyinstaller.org" target="_blank" rel="noopener"><span class="oss-item-name">PyInstaller</span><span>GPL-2.0 + bootloader exception</span></a>
       </div>
     </div>
@@ -836,8 +865,9 @@
       </div>
       <div class="footer-links">
         <a href="https://simdadllc.com">simdadllc.com</a>
-        <a href="mailto:hello@simdadllc.com">Contact</a>
+        <a href="mailto:ibis@simdadllc.com">Contact</a>
         <a href="/eula.html">License agreement</a>
+        <a href="/privacy.html">Privacy policy</a>
       </div>
     </div>
     <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
@@ -913,7 +943,7 @@
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
-        errEl.textContent = "Something went wrong. Please try again or email hello@simdadllc.com.";
+        errEl.textContent = "Something went wrong. Please try again or email ibis@simdadllc.com.";
         errEl.classList.add("visible");
         btn.disabled = false;
         btn.textContent = "Join the waitlist";
