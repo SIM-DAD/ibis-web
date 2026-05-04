@@ -79,7 +79,7 @@
     <h2>2. Information the Website Collects</h2>
     <p>The Ibis website at useibis.app may collect the following information:</p>
     <ul>
-      <li><strong>Email address.</strong> If you voluntarily subscribe to our waitlist or mailing list, your email address is collected and stored by Brevo (formerly Sendinblue), our email service provider.</li>
+      <li><strong>Email address.</strong> If you voluntarily subscribe to our waitlist or mailing list, your email address is received via a Cloudflare Worker form endpoint and stored in our Google Workspace inbox. We do not currently use a third-party email service provider; if that changes, this policy will be updated and existing subscribers will be notified.</li>
       <li><strong>Analytics data.</strong> We use Google Analytics (GA4, measurement ID: G-H7VKNWDVMG) to understand website traffic. Google Analytics uses cookies to collect anonymized usage data such as pages visited, time on site, and referral source. Analytics cookies are only set <strong>after you provide consent</strong> through the cookie banner.</li>
     </ul>
 
@@ -90,7 +90,8 @@
     <p>We use the following third-party services:</p>
     <ul>
       <li><strong>Gumroad.</strong> Payment processing and license key management. Gumroad processes your purchase transaction and manages license activation. Their privacy policy is available at <a href="https://gumroad.com/privacy" target="_blank" rel="noopener">gumroad.com/privacy</a>.</li>
-      <li><strong>Brevo.</strong> Email communications. If you subscribe to our mailing list, your email is stored by Brevo. Their privacy policy is available at <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">brevo.com/legal/privacypolicy</a>.</li>
+      <li><strong>Cloudflare.</strong> Form-handling Worker for waitlist and contact form submissions. The Worker receives your email address and forwards it to our Google Workspace inbox; Cloudflare does not retain submission contents beyond the time needed to forward them. Their privacy policy is available at <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.</li>
+      <li><strong>Google Workspace.</strong> Storage of waitlist and contact form submissions in our Gmail inbox. Their privacy policy is available at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
       <li><strong>Google Analytics.</strong> Website analytics only (not in the desktop application). Consent-required. Their privacy policy is available at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
     </ul>
 
