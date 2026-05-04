@@ -547,7 +547,7 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-brand"><img src="img/wordmark-offwhite.svg" alt="Ibis" class="nav-wordmark"></a>
-      <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
+      <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary">Buy on Gumroad</a>
     </div>
   </nav>
 
@@ -563,11 +563,11 @@
         Nothing ever leaves your computer.
       </p>
       <div class="hero-actions">
-        <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist &rarr;</a>
+        <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary btn-lg">Buy on Gumroad &rarr;</a>
         <a href="#how-it-works" class="btn btn-ghost btn-lg">How it works</a>
       </div>
       <p class="hero-meta">
-        $24 at launch, one-time<span>·</span>Windows 10 &amp; 11<span>·</span>No internet after install
+        $24, one-time<span>·</span>Windows 10 &amp; 11<span>·</span>No internet after install
       </p>
     </div>
   </section>
@@ -671,7 +671,7 @@
         </div>
       </div>
       <br><br>
-      <a href="#waitlist" class="btn btn-ghost-white">Join the waitlist &rarr;</a>
+      <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-ghost-white">Buy on Gumroad &rarr;</a>
     </div>
   </section>
 
@@ -753,7 +753,7 @@
       <div class="pricing-grid">
 
         <div class="pricing-card featured">
-          <span class="tier-badge tier-badge-accent">Launching Soon</span>
+          <span class="tier-badge tier-badge-accent">Available Now</span>
           <div class="tier-name">Personal</div>
           <div class="tier-price"><sup>$</sup>24</div>
           <div class="tier-note">one-time &nbsp;&middot;&nbsp; up to 3 devices</div>
@@ -768,7 +768,7 @@
             <li>No internet required after install</li>
             <li>Lifetime updates for v1.x</li>
           </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
+          <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary btn-full">Buy on Gumroad &rarr;</a>
         </div>
 
         <div class="pricing-card">
@@ -785,7 +785,7 @@
             <li class="dimmed">Speaker diarization <em>(planned)</em></li>
             <li class="dimmed">Video file support <em>(planned)</em></li>
           </ul>
-          <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Pro%20Waitlist" class="btn btn-ghost-dark btn-full">Join the Pro waitlist &rarr;</a>
+          <a href="#pro-waitlist" class="btn btn-ghost-dark btn-full">Join the Pro waitlist &rarr;</a>
         </div>
 
         <div class="pricing-card">
@@ -808,20 +808,20 @@
   </section>
 
 
-  <!-- WAITLIST -->
-  <section class="section-alt" id="waitlist">
+  <!-- PRO WAITLIST -->
+  <section class="section-alt" id="pro-waitlist">
     <div class="container">
       <div class="waitlist-wrap">
-        <span class="eyebrow">Early access</span>
-        <h2>Be the first to know.</h2>
+        <span class="eyebrow">Pro waitlist</span>
+        <h2>Pro tier, coming Q4 2026.</h2>
         <p class="section-sub">
-          Ibis v1.0 is complete and launching soon. Join the waitlist and we&rsquo;ll send you one
-          notification the moment it&rsquo;s available. No drip campaigns. No newsletters. Just: it&rsquo;s ready.
+          A Pro tier with priority support and institutional site licensing is on the Q4 2026 roadmap.
+          Join the waitlist and we&rsquo;ll let you know when Pro is available. One email when it ships. No drip campaigns.
         </p>
 
         <div class="wl-success" id="wl-success" role="status">
-          <h3>You&rsquo;re on the list.</h3>
-          <p>We&rsquo;ll be in touch the moment Ibis is available.</p>
+          <h3>You&rsquo;re on the Pro waitlist.</h3>
+          <p>We&rsquo;ll be in touch when Pro is available in Q4 2026.</p>
         </div>
 
         <form class="wl-form" id="wl-form" novalidate>
@@ -829,9 +829,9 @@
             <label for="wl-email">Email address</label>
             <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
           </div>
-          <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
+          <button type="submit" class="wl-submit" id="wl-submit">Join the Pro waitlist</button>
           <p class="wl-error" id="wl-error" role="alert"></p>
-          <p class="wl-fine">One email at launch. No spam. Unsubscribe anytime.</p>
+          <p class="wl-fine">One email when Pro ships. No spam. Unsubscribe anytime.</p>
         </form>
       </div>
     </div>
@@ -921,7 +921,7 @@
         const params = new URLSearchParams(window.location.search);
         const payload = {
           email,
-          listName: "ibis_waitlist",
+          listName: "ibis_pro_waitlist",
           attributes: {
             PRODUCT: "Ibis",
             SOURCE: "ibis-web",
@@ -946,7 +946,7 @@
         errEl.textContent = "Something went wrong. Please try again or email ibis@simdadllc.com.";
         errEl.classList.add("visible");
         btn.disabled = false;
-        btn.textContent = "Join the waitlist";
+        btn.textContent = "Join the Pro waitlist";
       }
     });
   </script>
