@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+  <!-- Ibis ornament: an audio waveform of seven bars (the brand is named for the bird, but the product is for audio) -->
+  <rect x="6"  y="13" width="3" height="6"  rx="1"/>
+  <rect x="16" y="9"  width="3" height="14" rx="1"/>
+  <rect x="26" y="4"  width="3" height="24" rx="1"/>
+  <rect x="36" y="1"  width="3" height="30" rx="1"/>
+  <rect x="46" y="6"  width="3" height="20" rx="1"/>
+  <rect x="56" y="11" width="3" height="10" rx="1"/>
+  <rect x="66" y="14" width="3" height="4"  rx="1"/>
+</svg>

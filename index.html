@@ -9,13 +9,13 @@
   <meta property="og:title" content="Ibis. Private, Local Transcription for Windows.">
   <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://useibis.app/img/gr-cover.jpg">
+  <meta property="og:image" content="https://useibis.app/img/social-share.png">
   <meta property="og:url" content="https://useibis.app">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://useibis.app/img/gr-cover.jpg">
+  <meta name="twitter:image" content="https://useibis.app/img/social-share.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────────── */
@@ -28,6 +28,7 @@
       --surface:   #F7F7F8;
       --border:    #E4E4E7;
       --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, serif;
       --max-w:     1080px;
       --radius:    8px;
     }
@@ -47,13 +48,34 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-repeat: repeat;
     }
     img, video { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+
+    /* ─── PAGE-LOAD REVEAL ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
+    }
+    .hero-eyebrow { animation-delay: 0.10s; }
+    .hero h1     { animation-delay: 0.22s; }
+    .hero-sub    { animation-delay: 0.44s; }
+    .hero-actions{ animation-delay: 0.60s; }
+    .hero-meta   { animation-delay: 0.74s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+        animation: none;
+      }
+    }
 
     /* ─── LAYOUT ─────────────────────────────────────────────────── */
     .container {
@@ -133,14 +155,15 @@
       margin-bottom: 1.5rem;
     }
     .hero h1 {
+      font-family: var(--font-display);
       font-size: clamp(3rem, 6.5vw, 5.25rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.035em;
+      font-weight: 600;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
       max-width: 16ch;
       margin-bottom: 1.5rem;
     }
-    .hero-accent { color: var(--accent); }
+    .hero-accent { color: var(--accent); font-style: italic; font-weight: 500; }
     .hero-sub {
       font-size: 1.125rem;
       color: var(--muted);
@@ -176,10 +199,11 @@
       gap: 2rem;
     }
     .stat-num {
-      font-size: 2rem;
-      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
       color: var(--accent);
-      letter-spacing: -0.03em;
+      letter-spacing: -0.025em;
       line-height: 1;
     }
     .stat-label {
@@ -226,13 +250,20 @@
     .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
 
     h2 {
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.025em;
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.7vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
       margin-bottom: 1.25rem;
     }
+    h2 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
     .section-dark h2 { color: #fff; }
+    .section-dark h2 em { color: var(--accent); }
 
     .section-sub {
       font-size: 1.0625rem;
@@ -526,6 +557,138 @@
       .hero-actions .btn { width: 100%; justify-content: center; }
       .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
+    /* ═══ MANUSCRIPT LAYOUT — the page is a longform article ═══ */
+    .manuscript { max-width: 720px; margin: 0 auto; padding: 0 2rem; font-family: var(--font-display); color: var(--text); }
+    .manuscript p { font-size: 1.1875rem; line-height: 1.7; margin: 0 0 1.4rem; color: var(--text); }
+    .manuscript em { font-style: italic; }
+    .manuscript strong { font-weight: 600; color: var(--accent); font-style: italic; }
+    .manuscript a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manuscript a:hover { border-color: var(--accent); }
+
+    .issue-marker {
+      max-width: 720px; margin: 4rem auto 3rem; padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      font-family: var(--font); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    }
+    .issue-marker::before, .issue-marker::after {
+      content: ""; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .opening {
+      max-width: 720px; margin: 0 auto 3.5rem; padding: 0 2rem; text-align: center;
+    }
+    .opening h1 {
+      font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6.25rem);
+      font-weight: 500; line-height: 0.98; letter-spacing: -0.035em;
+      margin: 0; color: var(--text);
+    }
+    .opening h1 em {
+      font-style: italic; font-weight: 400; color: var(--accent);
+    }
+    .opening .byline {
+      font-family: var(--font); font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-top: 2rem;
+    }
+
+    .lede {
+      font-size: 1.3125rem !important; line-height: 1.55 !important; margin-bottom: 2rem !important;
+    }
+    .lede::first-letter {
+      font-family: var(--font-display);
+      float: left; font-size: 5.6em; line-height: 0.85;
+      padding: 0.05em 0.12em 0 0;
+      font-weight: 600; color: var(--accent); font-style: italic;
+    }
+    .lede-opener { font-variant: small-caps; letter-spacing: 0.05em; font-weight: 500; }
+
+    .section-marker {
+      max-width: 720px; margin: 4.5rem auto 1.5rem; padding: 0 2rem; text-align: center;
+    }
+    .section-marker .numeral {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; font-style: italic;
+      color: var(--accent); letter-spacing: 0.12em;
+      display: inline-block; padding: 0 1.5rem; position: relative;
+    }
+    .section-marker .numeral::before, .section-marker .numeral::after {
+      content: ""; position: absolute; top: 50%; width: 3rem; height: 1px; background: var(--border);
+    }
+    .section-marker .numeral::before { right: 100%; }
+    .section-marker .numeral::after  { left: 100%; }
+    .section-marker .heading {
+      font-family: var(--font-display); font-size: 1.875rem; font-weight: 600;
+      letter-spacing: -0.015em; line-height: 1.2; margin-top: 0.75rem; color: var(--text);
+    }
+    .section-marker .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+    .pull-quote {
+      max-width: 720px; margin: 3.5rem auto; padding: 2rem 2rem 2rem 3.5rem;
+      font-family: var(--font-display); font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-style: italic; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em;
+      color: var(--accent); border-left: 3px solid var(--accent); position: relative;
+    }
+    .pull-quote::before {
+      content: "“"; position: absolute; left: 1.2rem; top: 0.5rem;
+      font-size: 4rem; color: var(--accent); opacity: 0.35; line-height: 1;
+      font-family: var(--font-display);
+    }
+
+    .ornament {
+      max-width: 720px; margin: 3.5rem auto 1.5rem; padding: 0 2rem; text-align: center;
+      font-family: var(--font-display); font-size: 1.5rem; color: var(--accent); opacity: 0.5;
+    }
+    .signature {
+      max-width: 720px; margin: 0 auto 5rem; padding: 0 2rem;
+      font-family: var(--font); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center;
+    }
+    .signature-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: inline-block; vertical-align: middle; margin-right: 0.85rem;
+      border: 1px solid var(--border); object-fit: cover;
+    }
+
+    .colophon { max-width: 720px; margin: 6rem auto 4rem; padding: 3rem 2rem 0; border-top: 1px solid var(--border); }
+    .colophon-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem;
+    }
+    .colophon-label {
+      font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .colophon-price {
+      font-family: var(--font-display); font-size: 2.25rem; font-weight: 600;
+      color: var(--accent); letter-spacing: -0.02em;
+    }
+    .colophon-price sup { font-size: 1.2rem; vertical-align: super; padding-right: 0.1em; }
+    .colophon p {
+      font-family: var(--font); font-size: 0.875rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 0.5rem;
+    }
+    .colophon-buy {
+      display: inline-block; margin-top: 1.25rem;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+      color: var(--accent); border-bottom: 1.5px solid var(--accent);
+      padding-bottom: 1px; transition: opacity 0.15s;
+    }
+    .colophon-buy:hover { opacity: 0.75; }
+
+    .end-waitlist { max-width: 720px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .end-waitlist .heading {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 600;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
+    }
+    .end-waitlist .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+    @media (max-width: 720px) {
+      .opening h1 { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+      .lede::first-letter { font-size: 4em; }
+      .pull-quote { padding: 1.5rem 1.5rem 1.5rem 2.5rem; }
+      .pull-quote::before { left: 0.8rem; top: 0.4rem; font-size: 3rem; }
+      .section-marker .numeral::before, .section-marker .numeral::after { width: 1.5rem; }
+    }
+
     /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
     .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
     .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
@@ -546,295 +709,162 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-brand"><img src="img/wordmark-offwhite.svg" alt="Ibis" class="nav-wordmark"></a>
+      <a href="#" class="nav-brand">
+        <picture>
+          <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-2D6A8F.svg" alt="Ibis" class="nav-wordmark">
+        </picture>
+      </a>
       <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary">Buy on Gumroad</a>
     </div>
   </nav>
 
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="hero-eyebrow">100% local. No cloud, ever.</span>
-      <h1>Your recordings stay on <span class="hero-accent">your machine</span>.</h1>
-      <p class="hero-sub">
-        Ibis watches a folder on your Windows PC and transcribes every audio file automatically,
-        using a local Whisper model that runs entirely offline. Drop a voice memo. Get a text file.
-        Nothing ever leaves your computer.
-      </p>
-      <div class="hero-actions">
-        <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary btn-lg">Buy on Gumroad &rarr;</a>
-        <a href="#how-it-works" class="btn btn-ghost btn-lg">How it works</a>
-      </div>
-      <p class="hero-meta">
-        $24, one-time<span>·</span>Windows 10 &amp; 11<span>·</span>No internet after install
-      </p>
-    </div>
-  </section>
+  <!-- ISSUE MARKER -->
+  <div class="issue-marker">Ibis &middot; A piece on private transcription &middot; May 2026</div>
 
 
-  <!-- STATS STRIP -->
-  <div class="stats-strip">
-    <div class="stats-inner">
-      <div>
-        <div class="stat-num">0</div>
-        <div class="stat-label">Cloud uploads, ever</div>
-      </div>
-      <div>
-        <div class="stat-num">99</div>
-        <div class="stat-label">Languages, bundled locally</div>
-      </div>
-      <div>
-        <div class="stat-num">$24</div>
-        <div class="stat-label">One-time, no subscription</div>
-      </div>
-      <div>
-        <div class="stat-num">CPU</div>
-        <div class="stat-label">No GPU required</div>
-      </div>
-    </div>
+  <!-- OPENING -->
+  <header class="opening">
+    <h1>Your recordings stay<br>on <em>your machine</em>.</h1>
+    <div class="byline">A local-first transcription tool for Windows &middot; $24 one-time</div>
+  </header>
+
+
+  <!-- LEDE -->
+  <article class="manuscript">
+    <p class="lede"><span class="lede-opener">Ibis watches a folder</span> on your Windows PC and transcribes every audio file automatically, using a local Whisper model that runs entirely offline. Drop a voice memo. Get a text file. Nothing ever leaves your computer.</p>
+
+    <p>Cloud transcription services receive your recordings, process them on remote servers, and store them under terms of service you agreed to but probably did not read. The convenience is real. So is the trade. For people whose audio is sensitive by profession or by preference, the trade has never been acceptable. The local alternatives, until recently, were either bad or inaccessible.</p>
+
+    <p>Ibis is the alternative. It uses OpenAI&rsquo;s Whisper large-v3-turbo model, packaged inside the installer. It runs on the CPU of an ordinary Windows machine. No GPU required. No account. No internet after install. The audio never moves.</p>
+  </article>
+
+
+  <!-- SECTION I -->
+  <div class="section-marker">
+    <span class="numeral">I</span>
+    <div class="heading">Set it <em>once</em>. Forget it exists.</div>
+  </div>
+
+  <article class="manuscript" id="how-it-works">
+    <p>Ibis lives in the system tray and watches a folder you choose. Every audio file you drop in becomes a transcript, automatically, while you do other things.</p>
+
+    <p>The setup is three steps. Point Ibis at a folder during installation. Drop in any MP3, WAV, or M4A file. A .txt transcript appears in a sibling Transcripts folder, timestamped and named to match the recording. A toast notification confirms the job is done. The original audio moves to Completed.</p>
+
+    <p>That is the entire interaction model. There is no application window to open, no batch to run, no queue to manage. The tool is invisible until it is useful.</p>
+  </article>
+
+
+  <!-- PULL QUOTE 1 -->
+  <blockquote class="pull-quote">Your audio is sensitive. Treat it that way.</blockquote>
+
+
+  <!-- SECTION II -->
+  <div class="section-marker">
+    <span class="numeral">II</span>
+    <div class="heading">Privacy, by <em>design</em>.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>The privacy claim is structural, not aspirational. The Whisper model lives inside the installer. The watch-folder process runs locally. The transcripts are written to your disk. Audio in the Completed folder is encrypted at rest using <strong>age v1</strong> with X25519 keys. The secret key lives in the <strong>Windows Credential Manager</strong>, not in any file Ibis can read. We do not see it. We do not sync it.</p>
+
+    <p>The model bundle ships with all <strong>99 languages</strong> Whisper supports. There is nothing to download per language. There is no opt-in pack. The whole multilingual capability is on disk after install, available offline forever.</p>
+  </article>
+
+
+  <!-- SECTION III -->
+  <div class="section-marker">
+    <span class="numeral">III</span>
+    <div class="heading">Cloud-grade <em>accuracy</em>. Zero cloud dependency.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>On the standard public ASR benchmark, Ibis hits <strong>1.94% word-error rate</strong> on LibriSpeech test-clean and <strong>3.87%</strong> on test-other (harder audio with accents and noise), using Whisper large-v3-turbo with int8 quantization. Both numbers are within <strong>0.27 percentage points</strong> of OpenAI&rsquo;s published full-precision baselines.</p>
+
+    <p>A note on speed. Ibis v1.0 runs on CPU, so expect roughly real-time transcription on consumer hardware. A v1.0.1 release will detect available GPU and accelerate substantially. Accuracy is unaffected by the device choice; quantization (int8) is identical on CPU and CUDA.</p>
+
+    <p>Methodology, per-split breakdown, and full reproducibility commands are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19931717">doi.org/10.5281/zenodo.19931717</a>.</p>
+  </article>
+
+
+  <!-- PULL QUOTE 2 -->
+  <blockquote class="pull-quote">The trade has never been acceptable. Now it does not have to be.</blockquote>
+
+
+  <!-- SECTION IV -->
+  <div class="section-marker">
+    <span class="numeral">IV</span>
+    <div class="heading">For people whose recordings are <em>confidential</em>.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>Ibis was built for the people who keep encountering the same problem. <em>Journalists</em> protect sources and need transcripts of interviews that should not pass through a third-party server. <em>Therapists and clinicians</em> handle session recordings under HIPAA constraints that local-only processing makes much easier to satisfy. <em>Attorneys</em> work with privileged communications and depositions. <em>Researchers</em> bound by IRB protocols often cannot use cloud services for participant data. <em>Knowledge workers</em> want voice notes flowing into their second brains automatically. <em>Podcasters and creators</em> need transcripts for show notes and captions in seconds, offline.</p>
+
+    <p>The tool does not care which of these you are. The transcript appears, locally, with a timestamp and a filename. The audio stays where it was.</p>
+  </article>
+
+
+  <!-- SECTION V — ENDNOTE -->
+  <div class="section-marker">
+    <span class="numeral">V</span>
+    <div class="heading"><em>Simple.</em> One-time. Yours.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>Ibis ships in three flavors. <strong>Personal</strong> is the only tier available now: <strong>$24</strong>, one-time, up to three devices, lifetime updates for v1.x. <strong>Pro</strong> is on the Q4 2026 roadmap at $49 with project workspaces and priority support; the Pro waitlist is open below. <strong>Team</strong> is a multi-seat bundle for practices and firms; reach out at <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing">ibis@simdadllc.com</a> for terms.</p>
+  </article>
+
+
+  <!-- ORNAMENT + SIGNATURE -->
+  <div class="ornament" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" fill="currentColor" style="width:5em;height:2em;display:inline-block;vertical-align:middle;">
+      <rect x="6"  y="13" width="3" height="6"  rx="1"/>
+      <rect x="16" y="9"  width="3" height="14" rx="1"/>
+      <rect x="26" y="4"  width="3" height="24" rx="1"/>
+      <rect x="36" y="1"  width="3" height="30" rx="1"/>
+      <rect x="46" y="6"  width="3" height="20" rx="1"/>
+      <rect x="56" y="11" width="3" height="10" rx="1"/>
+      <rect x="66" y="14" width="3" height="4"  rx="1"/>
+    </svg>
+  </div>
+  <div class="signature">
+    <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar">
+    Ibis Editorial &middot; SIM DAD LLC &middot; May 2026
   </div>
 
 
-  <!-- DEMO VIDEO -->
-  <div class="demo-section">
-    <div class="demo-inner">
-      <video
-        class="demo-video"
-        src="video/out/ibis-pitch-v2.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        aria-label="Ibis demo: watch-folder transcription in action"
-      ></video>
+  <!-- COLOPHON: PERSONAL TIER -->
+  <section class="colophon" id="pricing">
+    <div class="colophon-row">
+      <span class="colophon-label">Personal license &middot; available now</span>
+      <div class="colophon-price"><sup>$</sup>24</div>
     </div>
-  </div>
-
-
-  <!-- HOW IT WORKS -->
-  <section class="section" id="how-it-works">
-    <div class="container">
-      <span class="eyebrow">How it works</span>
-      <h2>Set it once.<br>Forget it exists.</h2>
-      <p class="section-sub">
-        Ibis lives in your system tray and watches a folder you choose. Every audio file you drop in
-        becomes a transcript, automatically, while you do other things.
-      </p>
-      <div class="steps-grid">
-        <div class="step-cell">
-          <div class="step-num">1</div>
-          <h3>Point Ibis at a folder</h3>
-          <p>Choose a Watch Folder during setup. Ibis monitors it silently in the background, with no window open and no manual intervention required.</p>
-        </div>
-        <div class="step-cell">
-          <div class="step-num">2</div>
-          <h3>Drop in an audio file</h3>
-          <p>Add any MP3, WAV, or M4A file. Ibis detects it immediately and begins transcribing using the on-device Whisper model. No internet, no waiting for a server.</p>
-        </div>
-        <div class="step-cell">
-          <div class="step-num">3</div>
-          <h3>Your transcript is ready</h3>
-          <p>A .txt file appears in your Transcripts folder, timestamped and named to match your recording. A toast notification confirms it&rsquo;s done. The original audio moves to Completed.</p>
-        </div>
-      </div>
-    </div>
+    <p>One-time &middot; up to 3 devices &middot; lifetime updates for v1.x &middot; Windows 10 &amp; 11.</p>
+    <p>Automatic watch-folder transcription &middot; Whisper large-v3-turbo bundled &middot; 99 languages &middot; MP3, WAV, M4A &middot; plain text and .srt output &middot; runs silently in the system tray &middot; no internet required after install.</p>
+    <a class="colophon-buy" href="https://simdadllc.gumroad.com/l/ibis">Buy on Gumroad &rarr;</a>
   </section>
 
 
-  <!-- PRIVACY / DARK -->
-  <section class="section-dark">
-    <div class="container">
-      <span class="eyebrow">Privacy, by design</span>
-      <p class="privacy-rule">Your audio is sensitive.<br><em>Treat it that way.</em></p>
-      <p class="section-sub" style="margin-bottom:2.5rem;">
-        Cloud transcription services receive your recordings, process them on remote servers,
-        and store them under terms of service you agreed to but probably didn&rsquo;t read.
-        Ibis doesn&rsquo;t. The AI model runs on your machine. Your audio never moves.
-      </p>
-      <div class="privacy-list">
-        <div class="privacy-item">
-          <h4>No audio ever leaves your machine</h4>
-          <p>Ibis uses a fully local Whisper model. No internet connection is required after installation, ever.</p>
-        </div>
-        <div class="privacy-item">
-          <h4>Encrypted at rest with your key</h4>
-          <p>Audio in the Completed folder is encrypted using age v1 (X25519). The secret key lives in the Windows Credential Manager. You hold it; we never see it.</p>
-        </div>
-        <div class="privacy-item">
-          <h4>99 languages, bundled locally</h4>
-          <p>Powered by OpenAI&rsquo;s Whisper large-v3-turbo model, packaged entirely inside the app installer.</p>
-        </div>
-        <div class="privacy-item">
-          <h4>Runs on any modern Windows PC</h4>
-          <p>No GPU required. Ibis uses int8-quantized CPU inference. Fast on everyday consumer hardware.</p>
-        </div>
+  <!-- PRO WAITLIST (quiet end-block) -->
+  <section class="end-waitlist" id="pro-waitlist">
+    <div class="heading">Pro tier, coming <em>Q4 2026</em>.</div>
+    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">A Pro tier with project workspaces, priority support, and institutional site licensing ships in Q4 2026. Add your email and we will let you know when it is available. One email when it ships. No drip campaigns.</p>
+
+    <div class="wl-success" id="wl-success" role="status">
+      <h3>You&rsquo;re on the Pro waitlist.</h3>
+      <p>We&rsquo;ll be in touch when Pro is available in Q4 2026.</p>
+    </div>
+
+    <form class="wl-form" id="wl-form" novalidate>
+      <div class="wl-field">
+        <label for="wl-email">Email address</label>
+        <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
       </div>
-      <br><br>
-      <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-ghost-white">Buy on Gumroad &rarr;</a>
-    </div>
-  </section>
-
-
-  <!-- ACCURACY -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Accuracy</span>
-      <h2>Cloud-grade accuracy.<br>Zero cloud dependency.</h2>
-      <p class="section-sub">
-        On the standard public ASR benchmark, Ibis hits
-        <strong>1.94% word-error rate on LibriSpeech test-clean</strong> and
-        <strong>3.87% on test-other</strong> (harder audio with accents and noise),
-        using Whisper large-v3-turbo with int8 quantization. Both numbers are
-        within 0.27 percentage points of OpenAI&rsquo;s published full-precision baselines.
-      </p>
-      <p class="section-sub" style="margin-top:1.5rem;font-size:0.95rem;">
-        A note on speed: Ibis v1.0 runs on CPU, so expect roughly real-time
-        transcription on consumer hardware. A v1.0.1 release will detect available
-        GPU and accelerate substantially. Accuracy is unaffected by the device
-        choice; quantization (int8) is identical on CPU and CUDA.
-      </p>
-      <p class="section-sub" style="margin-top:1.5rem;font-size:0.95rem;">
-        Methodology, per-split breakdown, and full reproducibility commands are in
-        the substantiation paper at
-        <a href="https://doi.org/10.5281/zenodo.19931717" style="color:var(--accent);text-decoration:underline;">doi.org/10.5281/zenodo.19931717</a>.
-      </p>
-    </div>
-  </section>
-
-
-  <!-- WHO USES IBIS -->
-  <section class="section-alt">
-    <div class="container">
-      <span class="eyebrow">Who uses Ibis</span>
-      <h2>Built for people whose<br>recordings are confidential.</h2>
-      <p class="section-sub">
-        Whether you&rsquo;re bound by professional ethics or just value your own privacy,
-        Ibis gives you accurate transcription without putting your data in anyone else&rsquo;s hands.
-      </p>
-      <div class="audience-grid">
-        <div class="audience-cell">
-          <h3>Journalists</h3>
-          <p>Protect your sources. Transcribe interviews locally before they ever touch a remote server.</p>
-        </div>
-        <div class="audience-cell">
-          <h3>Therapists &amp; Clinicians</h3>
-          <p>Local-only transcription helps support HIPAA compliance by keeping patient audio off remote servers entirely.</p>
-        </div>
-        <div class="audience-cell">
-          <h3>Attorneys</h3>
-          <p>Attorney-client privilege applies to recordings too. Keep deposition notes where they belong.</p>
-        </div>
-        <div class="audience-cell">
-          <h3>Researchers</h3>
-          <p>IRB protocols often prohibit cloud processing of participant data. Ibis solves that cleanly.</p>
-        </div>
-        <div class="audience-cell">
-          <h3>Knowledge Workers</h3>
-          <p>Voice notes into Obsidian, Notion, or anywhere you build your second brain. Automatically.</p>
-        </div>
-        <div class="audience-cell">
-          <h3>Podcasters &amp; Creators</h3>
-          <p>Transcribe recordings for show notes, captions, and repurposed content. Offline, in seconds.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- PRICING -->
-  <section class="section" id="pricing">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>Simple. One-time. Yours.</h2>
-      <p class="section-sub">
-        No tiers that lock core features behind a paywall. No surprise charges. Buy once, use it forever on one machine.
-      </p>
-      <div class="pricing-grid">
-
-        <div class="pricing-card featured">
-          <span class="tier-badge tier-badge-accent">Available Now</span>
-          <div class="tier-name">Personal</div>
-          <div class="tier-price"><sup>$</sup>24</div>
-          <div class="tier-note">one-time &nbsp;&middot;&nbsp; up to 3 devices</div>
-          <ul class="tier-features">
-            <li>Automatic watch-folder transcription</li>
-            <li>Whisper large-v3-turbo AI model included</li>
-            <li>99 languages, fully offline</li>
-            <li>MP3, WAV, and M4A support</li>
-            <li>Plain text &amp; subtitle (.srt) output</li>
-            <li>Windows 10 &amp; 11</li>
-            <li>Runs silently in system tray</li>
-            <li>No internet required after install</li>
-            <li>Lifetime updates for v1.x</li>
-          </ul>
-          <a href="https://simdadllc.gumroad.com/l/ibis" class="btn btn-primary btn-full">Buy on Gumroad &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <span class="tier-badge tier-badge-surface">Coming Q4 2026</span>
-          <div class="tier-name">Pro</div>
-          <div class="tier-price"><sup>$</sup>49</div>
-          <div class="tier-note">one-time &nbsp;&middot;&nbsp; up to 5 devices</div>
-          <ul class="tier-features">
-            <li>Everything in Personal</li>
-            <li>Projects: separate inbox, transcripts &amp; archive per client, case, or study</li>
-            <li>Up to 20 independent projects</li>
-            <li>Priority support</li>
-            <li class="dimmed">LLM summarization <em>(planned)</em></li>
-            <li class="dimmed">Speaker diarization <em>(planned)</em></li>
-            <li class="dimmed">Video file support <em>(planned)</em></li>
-          </ul>
-          <a href="#pro-waitlist" class="btn btn-ghost-dark btn-full">Join the Pro waitlist &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <span class="tier-badge tier-badge-surface">Coming in v3</span>
-          <div class="tier-name">Team</div>
-          <div class="tier-price-alt">Multi-seat</div>
-          <div class="tier-note">for practices, firms &amp; research groups</div>
-          <ul class="tier-features">
-            <li>Everything in Pro</li>
-            <li>3&ndash;5 seat license bundle</li>
-            <li>Independent license per seat</li>
-            <li>No shared infrastructure required</li>
-            <li>Works fully offline on every machine</li>
-          </ul>
-          <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing" class="btn btn-ghost-dark btn-full">Contact us for team pricing</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- PRO WAITLIST -->
-  <section class="section-alt" id="pro-waitlist">
-    <div class="container">
-      <div class="waitlist-wrap">
-        <span class="eyebrow">Pro waitlist</span>
-        <h2>Pro tier, coming Q4 2026.</h2>
-        <p class="section-sub">
-          A Pro tier with priority support and institutional site licensing is on the Q4 2026 roadmap.
-          Add your email below and we&rsquo;ll let you know when Pro is available. One email when it ships. No drip campaigns.
-        </p>
-
-        <div class="wl-success" id="wl-success" role="status">
-          <h3>You&rsquo;re on the Pro waitlist.</h3>
-          <p>We&rsquo;ll be in touch when Pro is available in Q4 2026.</p>
-        </div>
-
-        <form class="wl-form" id="wl-form" novalidate>
-          <div class="wl-field">
-            <label for="wl-email">Email address</label>
-            <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
-          </div>
-          <button type="submit" class="wl-submit" id="wl-submit">Join the Pro waitlist</button>
-          <p class="wl-error" id="wl-error" role="alert"></p>
-          <p class="wl-fine">One email when Pro ships. No spam. Unsubscribe anytime.</p>
-        </form>
-      </div>
-    </div>
+      <button type="submit" class="wl-submit" id="wl-submit">Join the Pro waitlist</button>
+      <p class="wl-error" id="wl-error" role="alert"></p>
+      <p class="wl-fine">One email when Pro ships. No spam. Unsubscribe anytime.</p>
+    </form>
   </section>
 
 
