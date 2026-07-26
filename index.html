@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ibis. Private, Local Transcription for Windows.</title>
+  <title>Ibis. Private, Local Transcription for Windows and macOS.</title>
   <link rel="icon" type="image/svg+xml" href="img/icon.svg">
-  <meta name="description" content="Ibis watches a folder on your Windows PC and transcribes every audio file automatically using AI that runs entirely offline. No cloud. No subscription. One-time purchase. Coming soon.">
-  <meta property="og:title" content="Ibis. Private, Local Transcription for Windows.">
+  <meta name="description" content="Ibis watches a folder on your computer and transcribes every audio file automatically using AI that runs entirely offline. No cloud. No subscription. One-time purchase. Coming soon.">
+  <meta property="og:title" content="Ibis. Private, Local Transcription for Windows and macOS.">
   <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://useibis.app/img/social-share.png">
   <meta property="og:url" content="https://useibis.app">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ibis. Private, Local Transcription for Windows.">
+  <meta name="twitter:title" content="Ibis. Private, Local Transcription for Windows and macOS.">
   <meta name="twitter:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta name="twitter:image" content="https://useibis.app/img/social-share.png">
   <link rel="canonical" href="https://useibis.app/">
@@ -23,15 +23,14 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Ibis",
-    "description": "Local Whisper transcription for Windows. Watches a folder and automatically transcribes every audio file using AI that runs entirely on your machine. No cloud. No subscription. One-time purchase. Coming soon.",
+    "description": "Local Whisper transcription for Windows and macOS. Watches a folder and automatically transcribes every audio file using AI that runs entirely on your machine. No cloud. No subscription. One-time purchase. Coming soon.",
     "url": "https://useibis.app",
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Windows 10, Windows 11",
+    "operatingSystem": "Windows 10, Windows 11, macOS",
     "image": "https://useibis.app/img/social-share.png",
     "offers": {
       "@type": "Offer",
       "availability": "https://schema.org/PreOrder",
-      "availability": "https://schema.org/InStock",
       "url": "https://useibis.app/"
     },
     "publisher": {
@@ -755,17 +754,17 @@
   <!-- OPENING -->
   <header class="opening">
     <h1>Your recordings stay<br>on <em>your machine</em>.</h1>
-    <div class="byline">A local-first transcription tool for Windows &middot; $24 one-time</div>
+    <div class="byline">A local-first transcription tool for Windows and macOS &middot; $24 one-time</div>
   </header>
 
 
   <!-- LEDE -->
   <article class="manuscript">
-    <p class="lede"><span class="lede-opener">Ibis watches a folder</span> on your Windows PC and transcribes every audio file automatically, using a local Whisper model that runs entirely offline. Drop a voice memo. Get a text file. Nothing ever leaves your computer.</p>
+    <p class="lede"><span class="lede-opener">Ibis watches a folder</span> on your computer and transcribes every audio file automatically, using a local Whisper model that runs entirely offline. Drop a voice memo. Get a text file. Nothing ever leaves your computer.</p>
 
     <p>Cloud transcription services receive your recordings, process them on remote servers, and store them under terms of service you agreed to but probably did not read. The convenience is real. So is the trade. For people whose audio is sensitive by profession or by preference, the trade has never been acceptable. The local alternatives, until recently, were either bad or inaccessible.</p>
 
-    <p>Ibis is the alternative. It uses OpenAI&rsquo;s Whisper large-v3-turbo model, packaged inside the installer. It runs on the CPU of an ordinary Windows machine. No GPU required. No account. No internet after install. The audio never moves.</p>
+    <p>Ibis is the alternative. It uses OpenAI&rsquo;s Whisper models; the speech model downloads once at first launch and is verified by checksum. It runs on the CPU of an ordinary machine. No GPU required. No account. No internet after that one-time download. The audio never moves.</p>
   </article>
 
 
@@ -776,11 +775,11 @@
   </div>
 
   <article class="manuscript" id="how-it-works">
-    <p>Ibis lives in the system tray and watches a folder you choose. Every audio file you drop in becomes a transcript, automatically, while you do other things.</p>
+    <p>Point Ibis at a watch folder you choose. Every audio file you drop in becomes a transcript, automatically, while you do other things.</p>
 
-    <p>The setup is three steps. Point Ibis at a folder during installation. Drop in any MP3, WAV, or M4A file. A .txt transcript appears in a sibling Transcripts folder, timestamped and named to match the recording. A toast notification confirms the job is done. The original audio moves to Completed.</p>
+    <p>The setup is three steps. Point Ibis at a folder in Settings. Drop in any MP3, WAV, or M4A file. A transcript appears next to the recording, timestamped and named to match. A notification confirms the job is done. The original recording stays where you put it.</p>
 
-    <p>That is the entire interaction model. There is no application window to open, no batch to run, no queue to manage. The tool is invisible until it is useful.</p>
+    <p>That is the entire interaction model. There is no batch to run and no queue to manage. The tool is invisible until it is useful.</p>
   </article>
 
 
@@ -795,9 +794,9 @@
   </div>
 
   <article class="manuscript">
-    <p>The privacy claim is structural, not aspirational. The Whisper model lives inside the installer. The watch-folder process runs locally. The transcripts are written to your disk. Audio in the Completed folder is encrypted at rest using <strong>age v1</strong> with X25519 keys. The secret key lives in the <strong>Windows Credential Manager</strong>, not in any file Ibis can read. We do not see it. We do not sync it.</p>
+    <p>The privacy claim is structural, not aspirational. The Whisper model lives on your disk after a one-time, checksum-verified download. The watch-folder process runs locally. The transcripts are written to your disk. Recordings and transcripts can be encrypted at rest using <strong>age</strong> with X25519 keys, and originals are kept unless you explicitly choose secure removal. The secret key lives in the <strong>Windows Credential Manager</strong> or <strong>macOS Keychain</strong>, not in any file Ibis can read. We do not see it. We do not sync it.</p>
 
-    <p>The model bundle ships with all <strong>99 languages</strong> Whisper supports. There is nothing to download per language. There is no opt-in pack. The whole multilingual capability is on disk after install, available offline forever.</p>
+    <p>Whisper&rsquo;s models cover all <strong>99 languages</strong> it supports, and there is nothing to download per language. Once your chosen model is on disk, the whole multilingual capability is available offline.</p>
   </article>
 
 
@@ -808,9 +807,9 @@
   </div>
 
   <article class="manuscript">
-    <p>On the standard public ASR benchmark, Ibis hits <strong>1.94% word-error rate</strong> on LibriSpeech test-clean and <strong>3.87%</strong> on test-other (harder audio with accents and noise), using Whisper large-v3-turbo with int8 quantization. Both numbers are within <strong>0.27 percentage points</strong> of OpenAI&rsquo;s published full-precision baselines.</p>
+    <p>On the standard public ASR benchmark, our published Ibis v1.0 evaluation measured <strong>1.94% word-error rate</strong> on LibriSpeech test-clean and <strong>3.87%</strong> on test-other (harder audio with accents and noise), using Whisper large-v3-turbo with int8 quantization. Both numbers are within <strong>0.27 percentage points</strong> of OpenAI&rsquo;s published full-precision baselines.</p>
 
-    <p>A note on speed. Ibis v1.0 runs on CPU, so expect roughly real-time transcription on consumer hardware. A v1.0.1 release will detect available GPU and accelerate substantially. Accuracy is unaffected by the device choice; quantization (int8) is identical on CPU and CUDA.</p>
+    <p>A note on speed. Ibis runs on CPU, so expect roughly real-time transcription on consumer hardware; on Apple silicon the engine accelerates via Metal. The rebuilt engine is being re-benchmarked before launch, and accuracy figures will be republished with it.</p>
 
     <p>Methodology, per-split breakdown, and full reproducibility commands are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19931717">doi.org/10.5281/zenodo.19931717</a>.</p>
   </article>
@@ -827,7 +826,7 @@
   </div>
 
   <article class="manuscript">
-    <p>Ibis was built for the people who keep encountering the same problem. <em>Journalists</em> protect sources and need transcripts of interviews that should not pass through a third-party server. <em>Therapists and clinicians</em> handle session recordings under HIPAA constraints that local-only processing makes much easier to satisfy. <em>Attorneys</em> work with privileged communications and depositions. <em>Researchers</em> bound by IRB protocols often cannot use cloud services for participant data. <em>Knowledge workers</em> want voice notes flowing into their second brains automatically. <em>Podcasters and creators</em> need transcripts for show notes and captions in seconds, offline.</p>
+    <p>Ibis was built for the people who keep encountering the same problem. <em>Journalists</em> protect sources and need transcripts of interviews that should not pass through a third-party server. <em>Therapists and clinicians</em> handle session recordings under HIPAA constraints; Ibis processes locally and is built with the intention to support adherence to those rules. <em>Attorneys</em> work with privileged communications and depositions. <em>Researchers</em> bound by IRB protocols often cannot use cloud services for participant data. <em>Knowledge workers</em> want voice notes flowing into their second brains automatically. <em>Podcasters and creators</em> need transcripts for show notes and captions in seconds, offline.</p>
 
     <p>The tool does not care which of these you are. The transcript appears, locally, with a timestamp and a filename. The audio stays where it was.</p>
   </article>
@@ -840,7 +839,7 @@
   </div>
 
   <article class="manuscript">
-    <p>Ibis ships in three flavors. <strong>Personal</strong> is the only tier available now: <strong>$24</strong>, one-time, up to three devices, lifetime updates for v1.x. <strong>Pro</strong> is on the Q4 2026 roadmap at $49 with project workspaces and priority support; the Pro waitlist is open below. <strong>Team</strong> is a multi-seat bundle for practices and firms; reach out at <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing">ibis@simdadllc.com</a> for terms.</p>
+    <p>Ibis ships in three flavors. <strong>Personal</strong> is the launch tier: <strong>$24</strong>, one-time, up to three devices, lifetime updates for v1.x. <strong>Pro</strong> is on the Q4 2026 roadmap at $49 with project workspaces and priority support; the Pro waitlist is open below. <strong>Team</strong> is a multi-seat bundle for practices and firms; reach out at <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing">ibis@simdadllc.com</a> for terms.</p>
   </article>
 
 
@@ -865,11 +864,11 @@
   <!-- COLOPHON: PERSONAL TIER -->
   <section class="colophon" id="pricing">
     <div class="colophon-row">
-      <span class="colophon-label">Personal license &middot; available now</span>
+      <span class="colophon-label">Personal license</span>
       <div class="colophon-price">Coming&nbsp;soon</div>
     </div>
-    <p>One-time &middot; up to 3 devices &middot; lifetime updates for v1.x &middot; Windows 10 &amp; 11.</p>
-    <p>Automatic watch-folder transcription &middot; Whisper large-v3-turbo bundled &middot; 99 languages &middot; MP3, WAV, M4A &middot; plain text and .srt output &middot; runs silently in the system tray &middot; no internet required after install.</p>
+    <p>One-time &middot; up to 3 devices &middot; lifetime updates for v1.x &middot; Windows 10 &amp; 11 and macOS.</p>
+    <p>Automatic watch-folder transcription &middot; Whisper models downloaded once at first launch &middot; 99 languages &middot; MP3, WAV, M4A &middot; plain text and .srt output &middot; no internet required after the one-time model download.</p>
     <span class="colophon-buy" aria-disabled="true">Coming soon</span>
   </section>
 
