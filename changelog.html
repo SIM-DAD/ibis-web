@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ibis. Release log.</title>
-<meta name="description" content="Every major iteration of Ibis, newest first. Versioned, not dated.">
+<meta name="description" content="Current state, and nothing that has not happened. Versioned, not dated.">
 <link rel="icon" type="image/svg+xml" href="img/logo-2D6A8F.svg">
 <link rel="canonical" href="https://useibis.app/changelog.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,70 +90,20 @@
 
     <section class="lede">
       <h1>Release <em>log</em>.</h1>
-      <p>Every major iteration of Ibis, newest first. We version what we ship and keep building within the version you own.</p>
+      <p>Current state, and nothing that has not happened. We version what we ship and keep building within the version you own.</p>
       <p class="note">Versioned, not dated. The number is the reference.</p>
     </section>
 
     <div class="log">
-
-      <article class="rel latest major">
-        <div class="ver"><span class="num">2.0</span><span class="name">The ground-up rebuild</span><span class="tag">In development</span></div>
-        <p class="summary">Ibis is being rebuilt as a fully native app — every privacy promise kept, everything faster. Coming soon.</p>
+      <article class="rel">
+        <div class="ver"><span class="name">Nothing released yet</span></div>
+        <p class="summary">Ibis is in development. There is no build to download and no
+          version history to report, and this page will list releases when there are any.</p>
         <ul class="hi">
-          <li>New native engine (Rust + whisper.cpp): faster transcription on ordinary CPUs, GPU acceleration where available, still 100% offline.</li>
-          <li>Set-and-forget capture: watch folders, move-on-complete filing, and auto-import the moment you plug in your voice recorder — originals never deleted.</li>
-          <li>Consent capture, PII redaction review, and a tamper-evident chain of custody for recordings that have to stand up to scrutiny.</li>
-          <li>Custom vocabulary so names and jargon come out spelled right; exports to TXT, SRT, VTT, CSV, JSON, Markdown, and Word.</li>
-          <li>Speaker-change markers (beta), light &amp; dark themes that follow your system, keyboard and screen-reader accessibility throughout.</li>
-          <li>Models download once with checksum verification; at-rest encryption is non-destructive by default with a recovery key you hold.</li>
+          <li>The transcription engine and export formats are built, but the application has never been packaged and its licensing path is unfinished.</li>
         </ul>
       </article>
 
-
-      <article class="rel major">
-        <div class="ver"><span class="num">1.0.0</span><span class="name">First public release</span></div>
-        <p class="summary">Drop an audio file in a folder, get a transcript back, with the recording never leaving your machine.</p>
-        <ul class="hi">
-          <li>Automatic watch-folder transcription: every MP3, WAV, or M4A you save becomes a timestamped text transcript.</li>
-          <li>Whisper large-v3-turbo bundled in the installer, covering 99 languages, with no download per language and no internet required after install.</li>
-          <li>Completed recordings encrypted at rest with age, keyed to the Windows Credential Manager.</li>
-          <li>Runs quietly in the system tray with toast notifications, plain text and .srt output, and an in-app license agreement.</li>
-          <li>Signed Windows installer with an embedded runtime for a clean first launch on Windows 10 and 11.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.9.0</span><span class="name">Release candidate</span></div>
-        <p class="summary">The last polish before going public.</p>
-        <ul class="hi">
-          <li>Added a privacy-respecting error reporting flow that drafts a message for you to send and never transmits anything on its own.</li>
-          <li>Shipped support templates so reporting a bug or asking for help follows a clear path.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.5.0</span><span class="name">Privacy hardening</span></div>
-        <p class="summary">Recordings became private by design, not just by promise.</p>
-        <ul class="hi">
-          <li>Added at-rest encryption for completed recordings, with the secret key held in the operating-system credential store rather than any file Ibis can read.</li>
-          <li>Built a recovery tool for decrypting your own archive, and made first launch more reliable across machines.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.2.0</span><span class="name">Licensing</span></div>
-        <p class="summary">Turned the prototype into something you could own.</p>
-        <ul class="hi">
-          <li>Added license activation, an activation window, and a one-time purchase model.</li>
-          <li>Brought the license agreement into the tray menu so the terms travel with the app.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.1.0</span><span class="name">First build</span></div>
-        <p class="summary">Where it began.</p>
-        <ul class="hi"><li>The core idea, working end to end: a folder watched on your Windows PC, audio transcribed locally with Whisper, a text file written back beside it.</li></ul>
-      </article>
 
     </div>
 

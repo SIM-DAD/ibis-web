@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ibis. Private, Local Transcription for Windows and macOS.</title>
+  <title>Ibis. Private, Local Transcription for Windows.</title>
   <link rel="icon" type="image/svg+xml" href="img/icon.svg">
   <meta name="description" content="Ibis watches a folder on your computer and transcribes every audio file automatically using AI that runs entirely offline. No cloud. No subscription. One-time purchase. Coming soon.">
-  <meta property="og:title" content="Ibis. Private, Local Transcription for Windows and macOS.">
+  <meta property="og:title" content="Ibis. Private, Local Transcription for Windows.">
   <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://useibis.app/img/social-share.png">
   <meta property="og:url" content="https://useibis.app">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ibis. Private, Local Transcription for Windows and macOS.">
+  <meta name="twitter:title" content="Ibis. Private, Local Transcription for Windows.">
   <meta name="twitter:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
   <meta name="twitter:image" content="https://useibis.app/img/social-share.png">
   <link rel="canonical" href="https://useibis.app/">
@@ -23,10 +23,10 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Ibis",
-    "description": "Local Whisper transcription for Windows and macOS. Watches a folder and automatically transcribes every audio file using AI that runs entirely on your machine. No cloud. No subscription. One-time purchase. Coming soon.",
+    "description": "Local Whisper transcription for Windows. Watches a folder and automatically transcribes every audio file using AI that runs entirely on your machine. No cloud. No subscription. One-time purchase. Coming soon.",
     "url": "https://useibis.app",
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Windows 10, Windows 11, macOS",
+    "operatingSystem": "Windows 10, Windows 11",
     "image": "https://useibis.app/img/social-share.png",
     "offers": {
       "@type": "Offer",
@@ -754,7 +754,7 @@
   <!-- OPENING -->
   <header class="opening">
     <h1>Your recordings stay<br>on <em>your machine</em>.</h1>
-    <div class="byline">A local-first transcription tool for Windows and macOS &middot; $24 one-time</div>
+    <div class="byline">A local-first transcription tool for Windows &middot; $24 one-time</div>
   </header>
 
 
@@ -794,7 +794,7 @@
   </div>
 
   <article class="manuscript">
-    <p>The privacy claim is structural, not aspirational. The Whisper model lives on your disk after a one-time, checksum-verified download. The watch-folder process runs locally. The transcripts are written to your disk. Recordings and transcripts can be encrypted at rest using <strong>age</strong> with X25519 keys, and originals are kept unless you explicitly choose secure removal. The secret key lives in the <strong>Windows Credential Manager</strong> or <strong>macOS Keychain</strong>, not in any file Ibis can read. We do not see it. We do not sync it.</p>
+    <p>The privacy claim is structural, not aspirational. The Whisper model lives on your disk after a one-time, checksum-verified download. The watch-folder process runs locally. The transcripts are written to your disk. Recordings and transcripts can be encrypted at rest using <strong>age</strong> with X25519 keys, and originals are kept unless you explicitly choose secure removal. The secret key lives in the <strong>Windows Credential Manager</strong>, not in any file Ibis can read. We do not see it. We do not sync it.</p>
 
     <p>Whisper&rsquo;s models cover all <strong>99 languages</strong> it supports, and there is nothing to download per language. Once your chosen model is on disk, the whole multilingual capability is available offline.</p>
   </article>
@@ -807,11 +807,11 @@
   </div>
 
   <article class="manuscript">
-    <p>On the standard public ASR benchmark, our published Ibis v1.0 evaluation measured <strong>1.94% word-error rate</strong> on LibriSpeech test-clean and <strong>3.87%</strong> on test-other (harder audio with accents and noise), using Whisper large-v3-turbo with int8 quantization. Both numbers are within <strong>0.27 percentage points</strong> of OpenAI&rsquo;s published full-precision baselines.</p>
+    <p>Ibis is built on Whisper large-v3-turbo. We have not yet run and published our own evaluation, so we make no accuracy claim of our own here. When Ibis ships, its measured word-error rates will be published alongside the build they describe.</p>
 
     <p>A note on speed. Ibis runs on CPU, so expect roughly real-time transcription on consumer hardware; on Apple silicon the engine accelerates via Metal. The rebuilt engine is being re-benchmarked before launch, and accuracy figures will be republished with it.</p>
 
-    <p>Methodology, per-split breakdown, and full reproducibility commands are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19931717">doi.org/10.5281/zenodo.19931717</a>.</p>
+    <p>A substantiation paper with the methodology, per-split breakdown and full reproducibility commands will be published against the shipping build.</p>
   </article>
 
 
@@ -867,7 +867,7 @@
       <span class="colophon-label">Personal license</span>
       <div class="colophon-price">Coming&nbsp;soon</div>
     </div>
-    <p>One-time &middot; no subscription &middot; up to 3 devices &middot; lifetime updates for v1.x &middot; Windows 10 &amp; 11 and macOS.</p>
+    <p>One-time &middot; no subscription &middot; up to 3 devices &middot; lifetime updates &middot; Windows 10 &amp; 11.</p>
     <p>Automatic watch-folder transcription &middot; Whisper models downloaded once at first launch &middot; 99 languages &middot; MP3, WAV, M4A &middot; plain text and .srt output &middot; no internet required after the one-time model download.</p>
     <span class="colophon-buy" aria-disabled="true">Coming soon</span>
   </section>
