@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ibis. Private, Local Transcription for Windows.</title>
-  <link rel="icon" type="image/svg+xml" href="img/icon.svg">
+  <link rel="icon" type="image/png" href="img/icon.png">
   <meta name="description" content="Ibis watches a folder on your computer and transcribes every audio file automatically using AI that runs entirely offline. No cloud. No subscription. One-time purchase. Coming soon.">
   <meta property="og:title" content="Ibis. Private, Local Transcription for Windows.">
   <meta property="og:description" content="Your recordings stay on your machine. Automatic AI transcription that never touches the internet.">
@@ -49,8 +49,9 @@
     :root {
       --accent:    #0072B2;
       --accent-h:  #005C90;
+      --accent-ink: #005C90; /* text-safe accent, 7.2:1 on white; --accent is for large display and fills */
       --text:      #0F0F0F;
-      --muted:     #6B7280;
+      --muted:     #586070;
       --bg:        #FFFFFF;
       --surface:   #F7F7F8;
       --border:    #E4E4E7;
@@ -64,6 +65,7 @@
       :root {
       /* #0072B2 is only 3.70:1 on the dark ground; this is 4.58:1. */
       --accent: #1F83BB;
+        --accent-ink: #56B4E9;
         --text:    #F4F4F5;
         --muted:   #A1A1AA;
         --bg:      #09090B;
@@ -153,10 +155,10 @@
       transition: all 0.15s;
       text-decoration: none;
     }
-    .btn-primary   { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary   { background: var(--accent); color: #fff; border-color: var(--accent-ink); }
     .btn-primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
     .btn-ghost     { background: transparent; color: var(--text); border-color: var(--border); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost:hover { border-color: var(--accent-ink); color: var(--accent-ink); }
     .btn-ghost-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
     .btn-ghost-white:hover { border-color: #fff; }
     .btn-ghost-dark { background: transparent; color: var(--text); border-color: var(--border); }
@@ -192,7 +194,7 @@
       max-width: 16ch;
       margin-bottom: 1.5rem;
     }
-    .hero-accent { color: var(--accent); font-style: italic; font-weight: 500; }
+    .hero-accent { color: var(--accent-ink); font-style: italic; font-weight: 500; }
     .hero-sub {
       font-size: 1.125rem;
       color: var(--muted);
@@ -231,7 +233,7 @@
       font-family: var(--font-display);
       font-size: 2.5rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--accent-ink);
       letter-spacing: -0.025em;
       line-height: 1;
     }
@@ -273,7 +275,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--accent);
+      color: var(--accent-ink);
       margin-bottom: 1rem;
     }
     .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
@@ -288,7 +290,7 @@
     }
     h2 em {
       font-style: italic;
-      color: var(--accent);
+      color: var(--accent-ink);
       font-weight: 500;
     }
     .section-dark h2 { color: #fff; }
@@ -321,7 +323,7 @@
     .step-num {
       font-size: 2rem;
       font-weight: 800;
-      color: var(--accent);
+      color: var(--accent-ink);
       letter-spacing: -0.04em;
       line-height: 1;
       margin-bottom: 1rem;
@@ -365,7 +367,7 @@
       max-width: 28ch;
       margin-bottom: 2.5rem;
     }
-    .privacy-rule em { color: var(--accent); font-style: normal; }
+    .privacy-rule em { color: var(--accent-ink); font-style: normal; }
 
     /* ─── AUDIENCE ───────────────────────────────────────────────── */
     .audience-grid {
@@ -410,7 +412,7 @@
       position: relative;
     }
     .pricing-card.featured {
-      border-color: var(--accent);
+      border-color: var(--accent-ink);
     }
     .tier-badge {
       display: inline-block;
@@ -422,7 +424,7 @@
       border-radius: 100px;
       margin-bottom: 1rem;
     }
-    .tier-badge-accent  { background: var(--accent); color: #fff; }
+    .tier-badge-accent  { background: var(--accent-ink); color: #fff; }
     .tier-badge-surface { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
     .tier-name {
       font-size: 0.8125rem;
@@ -466,7 +468,7 @@
     }
     .tier-features li::before {
       content: '✓';
-      color: var(--accent);
+      color: var(--accent-ink);
       font-size: 0.7rem;
       font-weight: 800;
       flex-shrink: 0;
@@ -496,7 +498,7 @@
       border-radius: var(--radius);
       transition: border-color 0.15s;
     }
-    .wl-field input[type="email"]:focus { outline: none; border-color: var(--accent); }
+    .wl-field input[type="email"]:focus { outline: none; border-color: var(--accent-ink); }
     .wl-field input::placeholder { color: var(--muted); }
     .wl-submit {
       width: 100%;
@@ -586,13 +588,13 @@
       .hero-actions .btn { width: 100%; justify-content: center; }
       .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
-    /* ═══ MANUSCRIPT LAYOUT — the page is a longform article ═══ */
+    /* ═══ MANUSCRIPT LAYOUT: the page is a longform article ═══ */
     .manuscript { max-width: 720px; margin: 0 auto; padding: 0 2rem; font-family: var(--font-display); color: var(--text); }
     .manuscript p { font-size: 1.1875rem; line-height: 1.7; margin: 0 0 1.4rem; color: var(--text); }
     .manuscript em { font-style: italic; }
-    .manuscript strong { font-weight: 600; color: var(--accent); font-style: italic; }
-    .manuscript a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
-    .manuscript a:hover { border-color: var(--accent); }
+    .manuscript strong { font-weight: 600; color: var(--accent-ink); font-style: italic; }
+    .manuscript a { color: var(--accent-ink); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manuscript a:hover { border-color: var(--accent-ink); }
 
     .issue-marker {
       max-width: 720px; margin: 4rem auto 3rem; padding: 0 2rem;
@@ -613,7 +615,7 @@
       margin: 0; color: var(--text);
     }
     .opening h1 em {
-      font-style: italic; font-weight: 400; color: var(--accent);
+      font-style: italic; font-weight: 400; color: var(--accent-ink);
     }
     .opening .byline {
       font-family: var(--font); font-size: 0.78rem; letter-spacing: 0.1em;
@@ -627,7 +629,7 @@
       font-family: var(--font-display);
       float: left; font-size: 5.6em; line-height: 0.85;
       padding: 0.05em 0.12em 0 0;
-      font-weight: 600; color: var(--accent); font-style: italic;
+      font-weight: 600; color: var(--accent-ink); font-style: italic;
     }
     .lede-opener { font-variant: small-caps; letter-spacing: 0.05em; font-weight: 500; }
 
@@ -636,7 +638,7 @@
     }
     .section-marker .numeral {
       font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; font-style: italic;
-      color: var(--accent); letter-spacing: 0.12em;
+      color: var(--accent-ink); letter-spacing: 0.12em;
       display: inline-block; padding: 0 1.5rem; position: relative;
     }
     .section-marker .numeral::before, .section-marker .numeral::after {
@@ -648,23 +650,23 @@
       font-family: var(--font-display); font-size: 1.875rem; font-weight: 600;
       letter-spacing: -0.015em; line-height: 1.2; margin-top: 0.75rem; color: var(--text);
     }
-    .section-marker .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+    .section-marker .heading em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
 
     .pull-quote {
       max-width: 720px; margin: 3.5rem auto; padding: 2rem 2rem 2rem 3.5rem;
       font-family: var(--font-display); font-size: clamp(1.5rem, 3.2vw, 2.1rem);
       font-style: italic; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em;
-      color: var(--accent); border-left: 3px solid var(--accent); position: relative;
+      color: var(--accent-ink); border-left: 3px solid var(--accent); position: relative;
     }
     .pull-quote::before {
       content: "“"; position: absolute; left: 1.2rem; top: 0.5rem;
-      font-size: 4rem; color: var(--accent); opacity: 0.35; line-height: 1;
+      font-size: 4rem; color: var(--accent-ink); opacity: 0.35; line-height: 1;
       font-family: var(--font-display);
     }
 
     .ornament {
       max-width: 720px; margin: 3.5rem auto 1.5rem; padding: 0 2rem; text-align: center;
-      font-family: var(--font-display); font-size: 1.5rem; color: var(--accent); opacity: 0.5;
+      font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-ink); opacity: 0.5;
     }
     .signature {
       max-width: 720px; margin: 0 auto 5rem; padding: 0 2rem;
@@ -688,7 +690,7 @@
     }
     .colophon-price {
       font-family: var(--font-display); font-size: 2.25rem; font-weight: 600;
-      color: var(--accent); letter-spacing: -0.02em;
+      color: var(--accent-ink); letter-spacing: -0.02em;
     }
     .colophon-price sup { font-size: 1.2rem; vertical-align: super; padding-right: 0.1em; }
     .colophon p {
@@ -698,7 +700,7 @@
     .colophon-buy {
       display: inline-block; margin-top: 1.25rem;
       font-family: var(--font); font-size: 0.95rem; font-weight: 600;
-      color: var(--accent); border-bottom: 1.5px solid var(--accent);
+      color: var(--accent-ink); border-bottom: 1.5px solid var(--accent);
       padding-bottom: 1px; transition: opacity 0.15s;
     }
     .colophon-buy:hover { opacity: 0.75; }
@@ -708,7 +710,7 @@
       font-family: var(--font-display); font-size: 2rem; font-weight: 600;
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
-    .end-waitlist .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+    .end-waitlist .heading em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
 
     @media (max-width: 720px) {
       .opening h1 { font-size: clamp(2.4rem, 11vw, 3.5rem); }
@@ -742,8 +744,17 @@
     .practice h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1rem; }
     .practice p { color: var(--text); margin: 0 0 1rem; }
     .practice-cta { color: var(--muted); }
-    .practice-cta a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .practice-cta a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
     .practice-cta a:hover { text-decoration-thickness: 2px; }
+    /* 5:1 floor: the small tracked labels measure below the floor in the muted gray even at 6.3:1 declared,
+       so they take a darker ink in light mode and keep the muted token in dark mode. */
+    .issue-marker, .opening .byline, .colophon-label { color: #4B5563; }
+    @media (prefers-color-scheme: dark) {
+      .issue-marker, .opening .byline, .colophon-label { color: var(--muted); }
+      /* dark mode: the bright accent carries the button, so the label goes dark */
+      .btn-primary, .wl-submit { background: var(--accent-ink); color: #09090B; border-color: var(--accent-ink); }
+      .btn-primary:hover, .wl-submit:hover:not(:disabled) { background: var(--accent-ink); filter: brightness(1.08); }
+    }
 </style>
 </head>
 <body>
@@ -763,7 +774,7 @@
 
 
   <!-- ISSUE MARKER -->
-  <div class="issue-marker">Ibis &middot; A piece on private transcription &middot; July 2026</div>
+  <div class="issue-marker">Ibis &middot; A piece on private transcription &middot; October 2026</div>
 
 
   <!-- OPENING -->
@@ -775,11 +786,11 @@
 
   <!-- LEDE -->
   <article class="manuscript">
-    <p class="lede"><span class="lede-opener">Ibis watches a folder</span> on your computer and transcribes every audio file automatically, using a local Whisper model that runs entirely offline. Drop a voice memo. Get a text file. Nothing ever leaves your computer.</p>
+    <p class="lede"><span class="lede-opener">Ibis watches a folder</span> on your computer and transcribes every audio file automatically, using a local Whisper model that runs entirely offline. Drop in a voice memo and a text file appears, and nothing leaves your computer.</p>
 
-    <p>Cloud transcription services receive your recordings, process them on remote servers, and store them under terms of service you agreed to but probably did not read. The convenience is real. So is the trade. For people whose audio is sensitive by profession or by preference, the trade has never been acceptable. The local alternatives, until recently, were either bad or inaccessible.</p>
+    <p>Cloud transcription services receive your recordings, process them on remote servers, and store them under terms of service you agreed to but probably did not read. The convenience is real, and so is the trade. For people whose audio is sensitive by profession or by preference, the trade has never been acceptable. The local alternatives, until recently, were either bad or inaccessible.</p>
 
-    <p>Ibis is the alternative. It uses OpenAI&rsquo;s Whisper models; the speech model downloads once at first launch and is verified by checksum. It runs on the CPU of an ordinary machine. No GPU required. No account. No internet after that one-time download. The audio never moves.</p>
+    <p>Ibis is the alternative. It uses OpenAI&rsquo;s Whisper models; the speech model downloads once at first launch and is verified by checksum. It runs on the CPU of an ordinary machine, with no GPU, no account, and no internet after that one-time download. The audio never moves.</p>
   </article>
 
 
@@ -794,7 +805,7 @@
 
     <p>The setup is three steps. Point Ibis at a folder in Settings. Drop in any MP3, WAV, or M4A file. A transcript appears next to the recording, timestamped and named to match. A notification confirms the job is done. The original recording stays where you put it.</p>
 
-    <p>That is the entire interaction model. There is no batch to run and no queue to manage. The tool is invisible until it is useful.</p>
+    <p>That is the entire interaction model. There is no batch to run and no queue to manage; the tool stays out of the way until a transcript appears.</p>
   </article>
 
 
@@ -818,20 +829,20 @@
   <!-- SECTION III -->
   <div class="section-marker">
     <span class="numeral">III</span>
-    <div class="heading">Cloud-grade <em>accuracy</em>. Zero cloud dependency.</div>
+    <div class="heading"><em>Accuracy</em>, measured before it is claimed.</div>
   </div>
 
   <article class="manuscript">
     <p>Ibis is built on Whisper large-v3-turbo. We have not yet run and published our own evaluation, so we make no accuracy claim of our own here. When Ibis ships, its measured word-error rates will be published alongside the build they describe.</p>
 
-    <p>A note on speed. Ibis runs on CPU, so expect roughly real-time transcription on consumer hardware; on Apple silicon the engine accelerates via Metal. The rebuilt engine is being re-benchmarked before launch, and accuracy figures will be republished with it.</p>
+    <p>A note on speed. Ibis runs on CPU, so expect roughly real-time transcription on consumer hardware. The rebuilt engine is being re-benchmarked before launch, and accuracy figures will be republished with it.</p>
 
     <p>A substantiation paper with the methodology, per-split breakdown and full reproducibility commands will be published against the shipping build.</p>
   </article>
 
 
   <!-- PULL QUOTE 2 -->
-  <blockquote class="pull-quote">The trade has never been acceptable. Now it does not have to be.</blockquote>
+  <blockquote class="pull-quote">The audio never moves.</blockquote>
 
 
   <!-- SECTION IV -->
@@ -847,14 +858,14 @@
   </article>
 
 
-  <!-- SECTION V — ENDNOTE -->
+  <!-- SECTION V: ENDNOTE -->
   <div class="section-marker">
     <span class="numeral">V</span>
-    <div class="heading"><em>Simple.</em> One-time. Yours.</div>
+    <div class="heading">Paid <em>once</em>, in three tiers.</div>
   </div>
 
   <article class="manuscript">
-    <p>Ibis ships in three flavors. <strong>Personal</strong> is the launch tier: <strong>$24</strong>, one-time, up to three devices, lifetime updates for v1.x. <strong>Pro</strong> is on the Q4 2026 roadmap at $59 with project workspaces and priority support; the Pro waitlist is open below. <strong>Team</strong> is a published multi-seat bundle for practices and firms: 5 seats at $99 (Personal) or $249 (Pro); 10 seats at $179 (Personal) or $449 (Pro). Questions about larger deployments go to <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing">ibis@simdadllc.com</a>.</p>
+    <p>Ibis is priced in three tiers. <strong>Personal</strong> is the launch tier: <strong>$24</strong>, one-time, up to three devices, lifetime updates for v1.x. <strong>Pro</strong> follows at $59 with project workspaces and priority support; the Pro waitlist is open below. <strong>Team</strong> is a published multi-seat bundle for practices and firms: 5 seats at $99 (Personal) or $249 (Pro); 10 seats at $179 (Personal) or $449 (Pro). Questions about larger deployments go to <a href="mailto:ibis@simdadllc.com?subject=Ibis%20Team%20Pricing">ibis@simdadllc.com</a>.</p>
   </article>
 
 
@@ -872,7 +883,7 @@
   </div>
   <div class="signature">
     <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar" loading="lazy" decoding="async" width="96" height="96">
-    Ibis Editorial &middot; SIM DAD LLC &middot; July 2026
+    Ibis Editorial &middot; SIM DAD LLC &middot; October 2026
   </div>
 
 
@@ -890,12 +901,12 @@
 
   <!-- PRO WAITLIST (quiet end-block) -->
   <section class="end-waitlist" id="pro-waitlist">
-    <div class="heading">Pro tier, coming <em>Q4 2026</em>.</div>
-    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">A Pro tier with project workspaces, priority support, and institutional site licensing ships in Q4 2026. Add your email and we will let you know when it is available. One email when it ships. No drip campaigns.</p>
+    <div class="heading">Pro tier, on the <em>roadmap</em>.</div>
+    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">A Pro tier with project workspaces, priority support, and institutional site licensing follows the Personal launch. Add your email and we will let you know when it is available. One email when it ships. No drip campaigns.</p>
 
     <div class="wl-success" id="wl-success" role="status">
       <h3>You&rsquo;re on the Pro waitlist.</h3>
-      <p>We&rsquo;ll be in touch when Pro is available in Q4 2026.</p>
+      <p>We&rsquo;ll be in touch when Pro is available.</p>
     </div>
 
     <form class="wl-form" id="wl-form" novalidate>
