@@ -25,7 +25,7 @@
   <main class="page" id="main">
     <p class="page-eyebrow">Legal</p>
     <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-meta"><span>Ibis</span> <span>SIM DAD LLC</span> <span>Effective April 12, 2026</span> <span>Version 1.0</span></p>
+    <p class="page-meta"><span>Ibis</span> <span>SIM DAD LLC</span> <span>Effective October 15, 2026</span> <span>Version 1.1</span></p>
 
     <p>This Privacy Policy describes how SIM DAD LLC (&ldquo;SIM DAD,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and protects information in connection with the Ibis desktop application and the Ibis website at <a href="https://useibis.app">useibis.app</a>. Ibis is a local Whisper-based audio transcription desktop app that runs entirely on your machine.</p>
 
@@ -36,37 +36,25 @@
       <li>Your email address (as provided during purchase)</li>
       <li>A device identifier (used to enforce the activation limit)</li>
     </ul>
-    <p>This activation data is processed by Gumroad on behalf of SIM DAD LLC. No other data leaves your machine through the application.</p>
+    <p>This activation data is processed by SIM DAD LLC&rsquo;s own licensing service. No other data leaves your machine through the application.</p>
 
     <h2>2. Information the Website Collects</h2>
     <p>The Ibis website at useibis.app may collect the following information:</p>
     <ul>
-      <li><strong>Email address.</strong> If you voluntarily subscribe to our waitlist or mailing list, your email address is received via a Cloudflare Worker form endpoint and stored in our Google Workspace inbox. We do not currently use a third-party email service provider; if that changes, this policy will be updated and existing subscribers will be notified.</li>
+      <li><strong>Email address.</strong> If you voluntarily subscribe to our waitlist or mailing list, your email address is received via a Cloudflare Worker form endpoint and stored by Brevo, our email service provider, on the Ibis waitlist.</li>
       <li><strong>Analytics data.</strong> We do not use third-party analytics, and this site sets no analytics cookies. Each page sends a single, first-party, cookie-free page-view count to an endpoint we operate; it records only the page name and the date, is skipped entirely when your browser sends Do Not Track, and stores no IP address and no identifier.</li>
     </ul>
 
     <h2>3. No Telemetry or Cloud Processing</h2>
-    <p>Ibis does not include any telemetry or usage analytics. All audio transcription and processing happens 100% locally on your device. No audio files or transcripts are ever sent to SIM DAD LLC or any third party. The only data the developer can ever receive is a crash report that you choose to send, described below.</p>
-
-    <h3>Error reports</h3>
-    <p>Ibis does not transmit any data automatically. If Ibis encounters an unexpected error, you may be prompted to send a crash report. Crash reports are sent only when you click Send, are addressed to <a href="mailto:support+ibis@simdadllc.com">support+ibis@simdadllc.com</a> through your own mail client, and contain only the following information:</p>
-    <ul>
-      <li>the product name and version</li>
-      <li>the date and time of the crash</li>
-      <li>the technical error (traceback)</li>
-      <li>your operating system and version</li>
-      <li>your CPU model and total RAM</li>
-      <li>(if relevant to the crash) your Python runtime version</li>
-    </ul>
-    <p>Crash reports never contain audio files, transcripts, file paths from your home directory, environment variables, your username, your hostname, your machine identifier, your IP address, your license key, or your order information. File paths inside the technical error are automatically redacted before the report is shown to you. There is no third-party error-tracking service.</p>
-    <p>You can disable crash-report prompts at any time in Settings &rarr; Privacy. You can review or delete saved reports in the same panel.</p>
+    <p>Ibis does not include any telemetry or usage analytics. All audio transcription and processing happens 100% locally on your device. No audio files or transcripts are ever sent to SIM DAD LLC or any third party. Ibis sends no crash reports or error reports.</p>
 
     <h2>4. Third-Party Services</h2>
     <p>We use the following third-party services:</p>
     <ul>
-      <li><strong>Gumroad.</strong> Payment processing and license key management. Gumroad processes your purchase transaction and manages license activation. Their privacy policy is available at <a href="https://gumroad.com/privacy" target="_blank" rel="noopener">gumroad.com/privacy</a>.</li>
-      <li><strong>Cloudflare.</strong> Form-handling Worker for waitlist and contact form submissions. The Worker receives your email address and forwards it to our Google Workspace inbox; Cloudflare does not retain submission contents beyond the time needed to forward them. Their privacy policy is available at <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.</li>
-      <li><strong>Google Workspace.</strong> Storage of waitlist and contact form submissions in our Gmail inbox. Their privacy policy is available at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
+      <li><strong>Gumroad.</strong> Payment processing only. Gumroad handles your purchase transaction. It does not issue, manage, or validate license keys, which are operated entirely by SIM DAD LLC. Their privacy policy is available at <a href="https://gumroad.com/privacy" target="_blank" rel="noopener">gumroad.com/privacy</a>.</li>
+      <li><strong>Cloudflare.</strong> Form-handling Worker for waitlist sign-ups. The Worker receives your email address and passes it to Brevo; Cloudflare does not retain submission contents beyond the time needed to pass them on. Their privacy policy is available at <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.</li>
+      <li><strong>Brevo.</strong> Storage of waitlist sign-ups. Their privacy policy is available at <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">brevo.com/legal/privacypolicy</a>.</li>
+      <li><strong>Google Workspace.</strong> Hosts our email, including messages you send to a simdadllc.com address. Their privacy policy is available at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
     </ul>
 
     <h2>5. Data Retention and Deletion</h2>
@@ -75,7 +63,7 @@
 
     <h2>6. Data Security</h2>
     <p>We implement reasonable technical and organizational measures to protect the limited personal data we collect. Because Ibis processes all content locally, your audio files and transcripts never leave your device and are protected by your own system&rsquo;s security.</p>
-    <p>Audio files in the Completed folder are encrypted at rest using <a href="https://age-encryption.org" target="_blank" rel="noopener">age v1</a> (X25519 plus ChaCha20-Poly1305), with the X25519 secret key stored in the Windows Credential Manager rather than on disk. Three independent paths exist to decrypt your own data: in-app replay of the most recent recording, in-app bulk export to plaintext from Settings, and a standalone <strong>tools/recover.py</strong> script shipped inside the installer that works without Ibis itself or any SIM DAD service. The encryption design, threat model and key-management approach will be documented in a substantiation paper published against the shipping build.</p>
+    <p>Recordings can be encrypted at rest using <a href="https://age-encryption.org" target="_blank" rel="noopener">age v1</a> (X25519 plus ChaCha20-Poly1305), with the X25519 secret key held in your operating system&rsquo;s keystore rather than on disk. Settings shows a recovery key you can back up; it recovers your encrypted files if the keystore is ever lost, without any SIM DAD service. The encryption design, threat model and key-management approach will be documented in a substantiation paper published against the shipping build.</p>
 
     <h2>7. Children&rsquo;s Privacy</h2>
     <p>Ibis is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, please contact us at <a href="mailto:support@simdadllc.com">support@simdadllc.com</a> and we will promptly delete it.</p>
