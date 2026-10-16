@@ -1,0 +1,387 @@
+/* useibis.app: one stylesheet for every page.
+   The page is a transcript: a fixed left gutter (the court reporter's line-number column) runs the
+   whole page behind a double margin rule, the transcript passages are set in Courier Prime, and the
+   running text is Libre Franklin. Plan and brief trace:
+   C:/pythia/work/restyle-2026-10/plans/ibis-web.md and the commit message. */
+
+/* ── Fonts (self-hosted, SIL OFL 1.1; see /fonts/README.txt) ─────────────────── */
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/courier-prime-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/courier-prime-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("/fonts/courier-prime-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("/fonts/libre-franklin-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("/fonts/libre-franklin-latin-wght-italic.woff2") format("woff2");
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+
+/* ── Tokens ─────────────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light dark;
+  --paper:  #FFFFFF;   /* the deposition page */
+  --ink:    #000000;   /* typewritten transcript ink */
+  --gutter: #575D64;   /* margin line numbers, muted text */
+  --rule:   #0072B2;   /* the pleading-paper margin rule: the one accent */
+  --link:   #005C90;   /* text-safe form of the accent */
+  --field:  #F3F5F7;   /* form fields, the practice block */
+  --line:   #D5DADF;   /* section separators */
+  --error:  #B3261E;
+
+  --type:   "Courier Prime", "Courier New", Courier, monospace;
+  --sans:   "Libre Franklin", "Franklin Gothic Medium", "Segoe UI", Arial, sans-serif;
+
+  --pad:    clamp(1rem, 4vw, 2.5rem);
+  --gut:    4.5rem;          /* line-number column */
+  --measure: 38rem;          /* about 70 characters of Franklin at 17px */
+  --wide:   46rem;           /* the transcript page and the headline */
+  --lh:     1.75rem;         /* the transcript line pitch */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:  #0E1216;
+    --ink:    #ECEEF0;
+    --gutter: #A3AAB2;
+    --rule:   #3D9BD4;
+    --link:   #7CC4F0;
+    --field:  #171C21;
+    --line:   #2C343C;
+    --error:  #FF8A80;
+  }
+}
+@media (max-width: 640px) {
+  :root { --gut: 2.25rem; --lh: 1.6rem; }
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+img, video { max-width: 100%; height: auto; display: block; }
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--rule); outline-offset: 3px; border-radius: 2px; }
+strong { font-weight: 650; }
+p, ul, ol, h1, h2, h3, blockquote, table { margin: 0; }
+
+/* Every block sits in the same grid: gutter, double rule, text. */
+.sheet {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.col { padding-left: var(--gut); }
+.col > * { max-width: var(--measure); }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: fixed; left: 1rem; top: 1rem; z-index: 10; padding: 0.75rem 1rem;
+  background: var(--paper); color: var(--ink); border: 2px solid var(--rule); }
+
+/* ── Masthead bar (all pages) ───────────────────────────────────────────────── */
+.nav, body > nav {
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  min-height: 4rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.nav-brand { display: flex; align-items: center; color: var(--ink); text-decoration: none;
+  font: 700 1.25rem/1 var(--type); }
+.nav-wordmark { height: 30px; width: auto; }
+.nav-back { font-size: 0.9375rem; color: var(--link); }
+
+/* Buttons: one shape, square-shouldered like a form field. */
+.btn, .colophon-buy, .wl-submit, .form-page button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.75rem; padding: 0.6rem 1.25rem;
+  font: 600 0.9375rem/1.2 var(--sans);
+  color: #FFFFFF; background: var(--link);
+  border: 0; border-radius: 3px; text-decoration: none; cursor: pointer;
+}
+.btn:hover, .colophon-buy:hover, .wl-submit:hover:not(:disabled), .form-page button:hover:not(:disabled) {
+  background: var(--ink); color: var(--paper);
+}
+.btn:active, .colophon-buy:active, .wl-submit:active, .form-page button:active { transform: translateY(1px); }
+.wl-submit:disabled, .form-page button:disabled { opacity: 0.6; cursor: progress; }
+@media (prefers-color-scheme: dark) {
+  .btn, .colophon-buy, .wl-submit, .form-page button { color: #0E1216; }
+}
+
+/* ── The transcript page (home hero) ────────────────────────────────────────── */
+.transcript {
+  position: relative;
+  margin-top: clamp(2.5rem, 7vw, 5rem);
+  padding: 0 0 clamp(2.5rem, 6vw, 4rem) var(--gut);
+  font-family: var(--type);
+}
+/* the double margin rule of a pleading page */
+.transcript::before {
+  content: ""; position: absolute; top: 0; bottom: 0;
+  left: calc(var(--gut) - 1.1rem); width: 5px;
+  border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+}
+.caption { display: grid; gap: 0; font-size: 1rem; line-height: var(--lh); color: var(--gutter);
+  margin-bottom: var(--lh); }
+.transcript h1 {
+  font-family: var(--type); font-weight: 700;
+  font-size: clamp(2rem, 5.6vw, 3.5rem); line-height: 1.08; letter-spacing: -0.02em;
+  max-width: var(--wide);
+}
+.transcript h1 em { font-style: normal; color: inherit; }
+.byline { display: grid; margin-top: var(--lh); margin-bottom: calc(var(--lh) * 1.5);
+  font-size: 1rem; line-height: var(--lh); }
+.byline span + span { font-weight: 700; }
+
+/* the numbered passage: Courier at a fixed pitch so the gutter numbers line up */
+.numbered {
+  position: relative;
+  max-width: 40rem;
+  font: 400 1.0625rem/var(--lh) var(--type);
+}
+.numbered::before {
+  content: "1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 10\A 11\A 12\A 13\A 14\A 15\A 16\A 17\A 18\A 19\A 20\A 21\A 22\A 23\A 24\A 25";
+  white-space: pre; position: absolute; top: 0; bottom: 0; overflow: hidden;
+  left: calc(-1 * var(--gut)); width: calc(var(--gut) - 2rem);
+  text-align: right; color: var(--gutter); font: inherit; line-height: var(--lh);
+}
+@media (max-width: 640px) {
+  .numbered::before { width: calc(var(--gut) - 1.6rem); font-size: 0.75rem; }
+  .transcript::before { left: calc(var(--gut) - 0.85rem); width: 4px; }
+}
+.lede-opener { font-weight: 700; }
+
+/* ── Running text (home) ────────────────────────────────────────────────────── */
+.manuscript { padding-left: var(--gut); }
+.manuscript p { max-width: var(--measure); margin-bottom: 1.1rem; }
+.manuscript p:last-child { margin-bottom: 0; }
+/* the professions in section IV read as speaker names in a transcript */
+.manuscript em { font-family: var(--type); font-style: normal; font-weight: 700; font-size: 0.97em;
+  line-height: 1; }
+
+.section-marker {
+  display: grid; grid-template-columns: var(--gut) minmax(0, 1fr); align-items: baseline;
+  margin-top: clamp(3rem, 7vw, 4.5rem); padding-top: 1.5rem; margin-bottom: 1rem;
+  border-top: 1px solid var(--line);
+}
+.numeral { font: 700 1rem/1 var(--type); color: var(--gutter); text-align: right;
+  padding-right: 1.4rem; }
+.heading, .end-waitlist h2, .practice h2, .oss-heading {
+  font: 700 clamp(1.375rem, 2.6vw, 1.75rem)/1.2 var(--sans); letter-spacing: -0.01em;
+  max-width: var(--measure);
+}
+.heading em, .end-waitlist h2 em { font-style: normal; color: inherit; }
+
+/* the two quoted lines: a passage lifted from the record, not a magazine pull quote */
+.quoted-line {
+  position: relative;
+  margin: clamp(2.5rem, 6vw, 3.5rem) 0 0;
+  padding: 0.25rem 0 0.25rem var(--gut);
+  font: 700 clamp(1.15rem, 2.4vw, 1.4rem)/1.4 var(--type);
+  max-width: calc(var(--gut) + var(--measure));
+}
+.quoted-line::before {
+  content: ""; position: absolute; top: 0; bottom: 0;
+  left: calc(var(--gut) - 1.1rem); width: 5px;
+  border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+}
+@media (max-width: 640px) { .quoted-line::before { left: calc(var(--gut) - 0.85rem); width: 4px; } }
+
+/* the reporter's certificate: who wrote this page */
+.signature {
+  display: flex; align-items: center; gap: 1rem;
+  margin: clamp(3rem, 7vw, 4.5rem) 0 0 var(--gut);
+  padding-top: 1rem; border-top: 1px solid var(--ink); max-width: 22rem;
+  font: 400 0.9375rem/1.45 var(--type);
+}
+.signature-avatar { width: 56px; height: 56px; border-radius: 50%; flex: none; filter: grayscale(1); }
+.signature-lines { display: grid; }
+
+/* pricing: a spec sheet */
+.colophon {
+  margin-top: clamp(3rem, 7vw, 4.5rem); padding: 1.5rem 0 0 var(--gut);
+  border-top: 1px solid var(--line);
+}
+.colophon-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.25rem;
+  margin-bottom: 1rem; }
+.colophon-label { font: 700 1.375rem/1.2 var(--sans); }
+.colophon-price { font: 700 1.125rem/1.2 var(--type); color: var(--gutter); }
+.spec { list-style: none; padding: 0; margin: 0 0 1.25rem; max-width: var(--measure);
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 0.15rem 1.5rem; }
+.spec li { position: relative; padding-left: 1rem; }
+.spec li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 0.45rem;
+  border-top: 2px solid var(--rule); }
+.colophon-buy { margin-top: 0.5rem; }
+
+/* Pro waitlist */
+.end-waitlist { margin-top: clamp(3rem, 7vw, 4.5rem); padding: 1.5rem 0 0 var(--gut);
+  border-top: 1px solid var(--line); }
+.end-waitlist > * { max-width: var(--measure); }
+.end-sub { color: var(--gutter); margin: 0.75rem 0 1.5rem; }
+.wl-form { display: grid; gap: 0.75rem; }
+.wl-field label, .form-page label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+input, textarea, select {
+  width: 100%; padding: 0.7rem 0.8rem; font: 400 1rem/1.4 var(--sans); color: var(--ink);
+  background: var(--field); border: 1px solid var(--gutter); border-radius: 3px;
+}
+input:focus-visible, textarea:focus-visible { outline: 3px solid var(--rule); outline-offset: 1px; }
+input::placeholder { color: var(--gutter); opacity: 1; }
+.wl-submit { justify-self: start; }
+.wl-fine, .fine { font-size: 0.875rem; color: var(--gutter); }
+.wl-success { display: none; padding: 1.25rem 0 1.25rem 1rem; border-left: 4px double var(--rule); }
+.wl-success.visible { display: block; }
+.wl-success h3 { font: 700 1.125rem/1.3 var(--type); margin-bottom: 0.35rem; }
+.wl-success p { color: var(--gutter); }
+.wl-error { display: none; font-size: 0.9375rem; color: var(--error); }
+.wl-error.visible { display: block; }
+
+/* Open-source acknowledgments: a two-column record, name and license */
+.oss-section { margin-top: clamp(3rem, 7vw, 4.5rem); padding-top: 1.5rem;
+  border-top: 1px solid var(--line); }
+.oss-section .container { padding-left: var(--gut); }
+.oss-heading { font-size: 1.25rem; }
+.oss-sub { color: var(--gutter); margin: 0.5rem 0 1rem; max-width: var(--measure); }
+.oss-grid { max-width: var(--measure); border-top: 1px solid var(--line); }
+.oss-item {
+  display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none;
+  font-size: 0.9375rem;
+}
+.oss-item span:last-child { color: var(--gutter); text-align: right; }
+.oss-item:hover .oss-item-name { text-decoration: underline; }
+.oss-item-name { font-weight: 600; color: var(--link); }
+
+/* The practice behind the product */
+.practice { margin-top: clamp(3rem, 7vw, 4.5rem); background: var(--field);
+  padding: clamp(2rem, 5vw, 3rem) 0; }
+.practice-inner {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto; padding: 0 var(--pad) 0 calc(var(--pad) + var(--gut));
+}
+.practice-inner > * { max-width: var(--measure); }
+.practice-eyebrow { font: 400 1rem/1.4 var(--type); color: var(--gutter); margin-bottom: 0.5rem; }
+.practice p { margin-bottom: 1rem; }
+.practice h2 { margin-bottom: 1rem; }
+.practice-cta { margin-bottom: 0 !important; }
+
+/* Footer (home, eula, privacy) */
+.footer, body > footer {
+  padding: 2.5rem 0 2.5rem;
+}
+.footer-inner {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto; padding: 0 var(--pad) 0 calc(var(--pad) + var(--gut));
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.25rem 2rem;
+}
+.footer-brand { font: 700 1.125rem/1.2 var(--type); }
+.footer-sub { font-size: 0.875rem; color: var(--gutter); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; }
+.footer-links a { font-size: 0.9375rem; }
+.footer-copy {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 1.5rem auto 0; padding: 1rem var(--pad) 0 calc(var(--pad) + var(--gut));
+  font-size: 0.875rem; color: var(--gutter);
+}
+
+/* ── Inner pages: license, privacy ──────────────────────────────────────────── */
+.page {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) var(--pad) clamp(3rem, 7vw, 5rem) calc(var(--pad) + var(--gut));
+}
+.page > * { max-width: var(--measure); }
+.page-eyebrow { font: 400 1rem/1.4 var(--type); color: var(--gutter); margin-bottom: 0.5rem; }
+.page-title, .form-page h1, .log-page h1 {
+  font: 700 clamp(1.9rem, 4.6vw, 2.75rem)/1.1 var(--type); letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.page-meta { display: grid; font: 400 0.9375rem/1.6 var(--type); color: var(--gutter);
+  padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.page h2 { font: 700 1.1875rem/1.3 var(--sans); margin: 2.25rem 0 0.6rem; }
+.page h3 { font: 700 1.0625rem/1.3 var(--sans); margin: 1.75rem 0 0.5rem; }
+.page p { margin-bottom: 1rem; }
+.page ul { margin: 0.25rem 0 1rem; padding-left: 1.25rem; }
+.page li { margin-bottom: 0.4rem; }
+.page table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1.5rem;
+  font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+.page th { text-align: left; font-weight: 650; padding: 0.45rem 0.6rem 0.45rem 0;
+  border-bottom: 2px solid var(--ink); }
+.page td { padding: 0.45rem 0.6rem 0.45rem 0; border-bottom: 1px solid var(--line); }
+.caps { font-size: 0.9375rem; }
+
+/* ── Beta request form ──────────────────────────────────────────────────────── */
+.form-page main {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) var(--pad) clamp(3rem, 7vw, 5rem) calc(var(--pad) + var(--gut));
+}
+.form-page main > * { max-width: var(--measure); }
+.form-page .eyebrow { font: 400 1rem/1.4 var(--type); color: var(--gutter); margin-bottom: 0.5rem; }
+.form-page .lede { font-size: 1.125rem; color: var(--gutter); margin-bottom: 1.75rem; }
+.form-page ul { padding-left: 1.25rem; margin-bottom: 2rem; }
+.form-page li { margin-bottom: 0.5rem; }
+.form-page hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+.form-page label { margin: 1.25rem 0 0.35rem; }
+.form-page .hint { display: block; font-weight: 400; color: var(--gutter); font-size: 0.9375rem; }
+.form-page textarea { min-height: 5rem; resize: vertical; }
+.form-page button { margin-top: 1.5rem; }
+.form-page .fine { margin-top: 0.8rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.msg { padding: 0.9rem 1rem; border-left: 4px double var(--rule); background: var(--field);
+  margin-bottom: 1.5rem; }
+[hidden] { display: none !important; }
+
+/* ── Release log ────────────────────────────────────────────────────────────── */
+.log-page .wrap {
+  max-width: calc(var(--gut) + var(--wide) + 2 * var(--pad));
+  margin: 0 auto; padding: 0 var(--pad);
+}
+.log-page .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  min-height: 4rem; border-bottom: 1px solid var(--line); }
+.log-page .top img { height: 30px; width: auto; }
+.log-page .back { font-size: 0.9375rem; }
+.log-page .lede { padding: clamp(2.5rem, 6vw, 4rem) 0 1.5rem var(--gut); }
+.log-page .lede > * { max-width: var(--measure); }
+.log-page .lede h1 em { font-style: normal; color: inherit; }
+.log-page .lede p { color: var(--gutter); margin-top: 0.75rem; }
+.log-page .lede .note { font: 400 0.9375rem/1.5 var(--type); }
+.log { padding: 0 0 3rem var(--gut); }
+.rel { position: relative; max-width: var(--measure); padding: 1.25rem 0 0;
+  border-top: 2px solid var(--ink); }
+.ver .name { font: 700 1.125rem/1.3 var(--type); }
+.summary { margin-top: 0.6rem; }
+ul.hi { margin-top: 0.75rem; padding-left: 1.25rem; color: var(--gutter); }
+.foot { border-top: 1px solid var(--line); padding: 2rem 0 3rem var(--gut);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+.foot .brand { font: 700 1.125rem/1.2 var(--type); }
+.foot .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.foot a { font-size: 0.9375rem; }
+code { font-family: var(--type); }
+
+@media (max-width: 640px) {
+  .transcript h1 br { display: none; }
+}
